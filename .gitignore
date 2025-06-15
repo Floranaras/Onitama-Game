@@ -1,0 +1,191 @@
+# Onitama Game - Git Ignore File
+# CCPROG2 Project
+
+# Compiled executables
+onitama
+onitama.exe
+*.exe
+*.out
+
+# Object files
+*.o
+*.obj
+
+# Compiled libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared libraries
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Compiler-generated files
+*.d
+*.dep
+
+# Build directories
+build/
+bin/
+obj/
+debug/
+release/
+
+# IDE and editor files
+## Visual Studio Code
+.vscode/
+*.code-workspace
+
+## Dev-C++
+*.dev
+*.layout
+*.win
+
+## Code::Blocks
+*.cbp
+*.layout
+*.depend
+
+## CLion
+.idea/
+cmake-build-*/
+
+## Vim
+*.swp
+*.swo
+*~
+
+## Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+## Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# System files
+## Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+## macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+## Linux
+*~
+.directory
+.Trash-*
+
+# Archive files (except submission archives)
+*.zip
+*.tar.gz
+*.tar.bz2
+*.rar
+*.7z
+
+# But keep submission archives
+!*submission*.tar.gz
+!*submission*.zip
+
+# Log files
+*.log
+debug.txt
+error.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+temp/
+tmp/
+
+# Game save files (if implemented)
+saves/
+*.sav
+*.save
+
+# Testing files (keep test_script.txt but ignore test outputs)
+test_output.txt
+test_results.txt
+*_test_output*
+
+# Documentation build files
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.toc
+
+# Core dumps
+core
+core.*
+vgcore.*
+
+# Memory debugging
+*.memcheck
+valgrind-out.txt
+
+# Profiling
+gmon.out
+*.prof
+
+# Static analysis
+cppcheck.xml
+scan-build-*/
+
+# Coverage files
+*.gcov
+*.gcda
+*.gcno
+lcov.info
+coverage/
+
+# Custom directories to ignore
+personal_notes/
+drafts/
+old_versions/
+
+# But ensure we keep important project files
+!README.md
+!Makefile
+!.gitignore
+!cards/
+!cards/*.txt
+!src/
+!src/*.c
+!src/*.h
+!test_script.txt
