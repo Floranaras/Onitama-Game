@@ -1,0 +1,17 @@
+16
+Boar
+Crab
+Crane
+Cobra
+Dragon
+Eel
+Elephant
+Frog
+Goose
+Horse
+Mantis
+Monkey
+Ox
+Rabbit
+Rooster
+Tiger
