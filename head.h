@@ -10,7 +10,7 @@
 #define SIDE (5)
 #define CARDS_PER_PLAYER (2)
 #define MAX_CARDS (30)
-#define MAX_MOVES (1000)
+#define MAX_GAME_MOVES (1000)
 
 /* Aliases */
 typedef char String10[MAX_STR];
@@ -58,7 +58,7 @@ struct databaseTag
     cardType playerCards[2][CARDS_PER_PLAYER];
     cardType neutralCard;
 
-    moveType gameMoves[MAX_MOVES];
+    moveType gameMoves[MAX_GAME_MOVES];
     int gameMovesCtr;
 
     String10 p1;
