@@ -20,7 +20,9 @@ void initCards (databaseType *db)
 {
     /* 
     for each loop cards
+    getMoves - generises the moves into +/- j and k allowing it move regardless of src coord
     blueMoves - stores index j k to the arr of moves
+    reverse arr =  
     redMoves - temp cardArr reverse it then stores index j k to the arr of moves
     */
 }
@@ -49,3 +51,4 @@ void initTempVar (databaseType *db)
 {
 
 }
+
