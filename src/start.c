@@ -1,30 +1,121 @@
+#include "load.c"
 
 void initDatabase (databaseType *db)
 {
-
+	db->bGameOver = 0;
+	db->bCurrentPlayer = db->cardDb[db->neutralCard].bColor;
 }
+
 void initBoard (databaseType *db)
 {
+	int j, k;
+	char temp[SIDE][SIDE] = {{'r','r','R','r','r'}, 
+							{'.','.','.','.','.'}, 
+							{'.','.','.','.','.'}, 
+							{'.','.','.','.','.'},
+							{'b','b','B','b','b'}};
 
+	for (j = 0; j < SIDE; j++) 
+	{
+		for (k = 0; k < SIDE; k++)
+		{
+			db->board[j][k] = temp[j][k];
+		}
+	}
 }
 
-void placePiece (databaseType *db)
+int cardExists (int cardIdx[], int count, int key)
 {
+	int j, k;
+	int bFound = 0;
 
+	for (j = 0; j < count && !bFound; j++)	
+	{	
+		if (cardIdx[j] == key)
+		{
+			bFound = 1;
+		}
+	}
+
+	return bFound;
 }
-
-void shuffleCards (databaseType *db)
+/*
+void dealCards (databaseType *db)
 {
+	int j = 0;
+	int k = 0;
+	int ctr = 0;
+	int randNum;
+	int cardIdx[5];
 
+	for (j = 0; j < 5; j++)
+	{
+		cardIdx[j] = -1;
+	}
+
+	do
+	{
+		randNum = rand() % db->numCards;
+
+		if (!cardExists(cardIdx, j, randNum))
+		{
+			cardIdx[j] = randNum;
+			j++;
+		}
+
+	} while (j < 5);
+
+	for (j = 0; j < CARDS_PER_PLAYER; j++)
+	{
+		for (k = 0; k < CARDS_PER_PLAYER; k++)
+		{
+			db->playerCards[j][k] = cardIdx[ctr];
+			ctr++;
+		}
+	}
+
+	db->neutralCard = cardIdx[ctr];
 }
+*/
 
-void dealCard (databaseType *db)
+void dealCards(databaseType *db)
 {
+	int j = 0, k = 0, ctr = 0;
+	int randNum;
+	int cardIdx[5]; // CARDS_PER_PLAYER*2 + 1 = 2*2 + 1 = 5
 
+	srand(time(NULL));
+
+	do 
+	{
+		randNum = rand() % db->numCards;
+
+		if (!cardExists(cardIdx, j, randNum)) 
+		{
+			cardIdx[j] = randNum;
+			j++;
+		}
+
+	} while (j < 5);
+
+	ctr = 0;
+	for (j = 0; j < 2; j++) 
+	{
+		for (k = 0; k < 2; k++) 
+		{
+			db->playerCards[j][k] = cardIdx[ctr];
+			ctr++;
+		}
+	}
+
+	db->neutralCard = cardIdx[ctr];
 }
 
-void initTempVar (databaseType *db)
+void getPlayerNames(String10 name)
 {
-
+	printf("Input Name: ");
+	scanf("%s", name);
 }
+
+
 

@@ -1,4 +1,4 @@
-#include "../src/menu.c"
+#include "../include/head.h"
 
 int loadMasterList (databaseType *db)
 {

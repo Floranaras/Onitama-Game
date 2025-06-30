@@ -1,4 +1,4 @@
-#include "src/load.c"
+#include "src/start.c"
 
 void printArr (char arr[][SIDE])
 {
@@ -112,6 +112,33 @@ void testCalc (databaseType *db)
 	}
 
 }
+
+void testBoard (databaseType *db)
+{
+	initBoard(db);
+	printf("\n===DEBUG BOARD TEST===\n");
+	printArr(db->board);
+}
+
+void testDealing (databaseType *db)
+{	
+	int j, k;
+	dealCards(db);
+	
+	printf("Neutral: %d\n", db->neutralCard);
+
+	for (j = 0; j < CARDS_PER_PLAYER; j++)
+	{
+		for (k = 0; k < CARDS_PER_PLAYER; k++)
+		{
+			printf("%d ", db->playerCards[j][k]);
+		}
+
+		printf("\n");
+	}
+
+
+}
 int main ()
 {
 	databaseType db;
@@ -119,5 +146,9 @@ int main ()
 	testMasterList(&db);
 	testCard(&db);
 	testCalc(&db);
+	testBoard(&db);
+	printf("%d\n", db.numCards);
+	testDealing(&db);
+
     return 0;
 }

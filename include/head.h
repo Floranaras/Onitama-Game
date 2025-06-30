@@ -58,8 +58,8 @@ struct databaseTag
     cardType cardDb[MAX_CARDS];
     int numCards;
 
-    cardType playerCards[2][CARDS_PER_PLAYER];
-    cardType neutralCard;
+    int playerCards[2][CARDS_PER_PLAYER];
+    int neutralCard;
 
     moveType gameMoves[MAX_GAME_MOVES];
     int gameMovesCtr;
@@ -76,3 +76,4 @@ struct databaseTag
 };
 
 typedef struct databaseTag databaseType;
+

@@ -2,7 +2,7 @@
 
 void gameLoop (databaseType *db)
 {
-        
+	
 }
 
 void mainMenu (databaseType *db)
