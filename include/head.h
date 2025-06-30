@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX_STR (11)
+#define STR30 (31)
+#define STR10 (11)
 #define BLUE (0) 
 #define RED (1)
 #define MAX_MOVES (4)
@@ -11,16 +12,18 @@
 #define CARDS_PER_PLAYER (2)
 #define MAX_CARDS (30)
 #define MAX_GAME_MOVES (1000)
+#define MASTER_LIST "data/movecards.txt"
 
 /* Aliases */
-typedef char String10[MAX_STR];
+typedef char String10[STR10];
+typedef char String30[STR30];
 
 /* Structures */
 
 struct pointTag
 {
-    int x;
-    int y;
+    int row;
+    int col;
 };
 
 typedef struct pointTag pointType;

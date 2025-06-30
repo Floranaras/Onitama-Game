@@ -1,0 +1,227 @@
+PASS
+
+===PRINTF DEBUG===
+Boar
+Crab
+Crane
+Cobra
+Dragon
+Eel
+Elephant
+Frog
+Goose
+Horse
+Mantis
+Monkey
+Ox
+Rabbit
+Rooster
+Tiger
+
+===Boar Card===
+Color: RED
+===Card PATTERN===
+
+{
+. . . . . 
+. . x . . 
+. x X x . 
+. . . . . 
+. . . . . 
+
+}
+
+===Crab Card===
+Color: BLUE
+===Card PATTERN===
+
+{
+. . . . . 
+. . x . . 
+x . X . x 
+. . . . . 
+. . . . . 
+
+}
+
+===Crane Card===
+Color: RED
+===Card PATTERN===
+
+{
+. . . . . 
+. . x . . 
+. . X . . 
+. x . x . 
+. . . . . 
+
+}
+
+===Cobra Card===
+Color: BLUE
+===Card PATTERN===
+
+{
+. . . . . 
+. . . x . 
+. x X . . 
+. . . x . 
+. . . . . 
+
+}
+
+===Dragon Card===
+Color: RED
+===Card PATTERN===
+
+{
+. . . . . 
+x . . . x 
+. . X . . 
+. x . x . 
+. . . . . 
+
+}
+
+===Eel Card===
+Color: BLUE
+===Card PATTERN===
+
+{
+. . . . . 
+. x . . . 
+. . X x . 
+. x . . . 
+. . . . . 
+
+}
+
+===Elephant Card===
+Color: RED
+===Card PATTERN===
+
+{
+. . . . . 
+. x . x . 
+. x X x . 
+. . . . . 
+. . . . . 
+
+}
+
+===Frog Card===
+Color: BLUE
+===Card PATTERN===
+
+{
+. . . . . 
+. x . . . 
+x . X . . 
+. . . x . 
+. . . . . 
+
+}
+
+===Goose Card===
+Color: BLUE
+===Card PATTERN===
+
+{
+. . . . . 
+. x . . . 
+. x X x . 
+. . . x . 
+. . . . . 
+
+}
+
+===Horse Card===
+Color: RED
+===Card PATTERN===
+
+{
+. . . . . 
+. . x . . 
+. x X . . 
+. . x . . 
+. . . . . 
+
+}
+
+===Mantis Card===
+Color: BLUE
+===Card PATTERN===
+
+{
+. . . . . 
+. x . x . 
+. . X . . 
+. . x . . 
+. . . . . 
+
+}
+
+===Monkey Card===
+Color: RED
+===Card PATTERN===
+
+{
+. . . . . 
+. x . x . 
+. . X . . 
+. x . x . 
+. . . . . 
+
+}
+
+===Ox Card===
+Color: BLUE
+===Card PATTERN===
+
+{
+. . . . . 
+. . x . . 
+. . X x . 
+. . x . . 
+. . . . . 
+
+}
+
+===Rabbit Card===
+Color: RED
+===Card PATTERN===
+
+{
+. . . . . 
+. . . x . 
+. . X . x 
+. x . . . 
+. . . . . 
+
+}
+
+===Rooster Card===
+Color: BLUE
+===Card PATTERN===
+
+{
+. . . . . 
+. . . x . 
+. x X x . 
+. x . . . 
+. . . . . 
+
+}
+
+===Tiger Card===
+Color: RED
+===Card PATTERN===
+
+{
+. . x . . 
+. . . . . 
+. . X . . 
+. . x . . 
+. . . . . 
+
+}
