@@ -45,17 +45,39 @@ int isInRange(pointType dest)
 	return (dest.row >= 0 && dest.row <=4) && (dest.col >= 0 && dest.col <=4);
 }
 
-int isValid (databaseType *db, pointType src, pointType dest, int cardIdx)
+int isValid (databaseType *db, pointType src, pointType dest, int cardIdx, int verbose)
 {
-	char student;
-	char sensei;
-	
+	char student, sensei;
+	int bValid = 1;
+
 	getPieces(&student, &sensei, db->bCurrentPlayer);
 
-	return  isOwnPiece(db, src, student,sensei) && 
-			followsPattern(db, src, dest, cardIdx) &&
-			isInRange(dest) &&
-			!isOwnPiece(db, dest, student, sensei);
+	if (!isOwnPiece(db, src, student, sensei))
+	{
+		if (verbose)
+			printf("Invalid move: selected piece is not your own.\n");
+		bValid = 0;
+	}
+	else if (!followsPattern(db, src, dest, cardIdx))
+	{
+		if (verbose)
+			printf("Invalid move: destination does not follow the selected card's pattern.\n");
+		bValid = 0;
+	}
+	else if (!isInRange(dest))
+	{
+		if (verbose)
+			printf("Invalid move: destination is out of board range.\n");
+		bValid = 0;
+	}
+	else if (isOwnPiece(db, dest, student, sensei))
+	{
+		if (verbose)
+			printf("Invalid move: cannot move onto your own piece.\n");
+		bValid = 0;
+	}
+
+	return bValid;
 }
 
 int findMoves (databaseType *db, pointType src)
@@ -73,7 +95,7 @@ int findMoves (databaseType *db, pointType src)
 			dest.row = src.row + db->cardDb[cardIdx].moves[db->bCurrentPlayer][j].row;
 			dest.col = src.col + db->cardDb[cardIdx].moves[db->bCurrentPlayer][j].col;
 
-			if (isValid(db,src,dest,cardIdx))
+			if (isValid(db,src,dest,cardIdx, 0))
 				bFound = 1;
 		}
 	}

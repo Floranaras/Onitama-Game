@@ -25,7 +25,7 @@ void switchCards (databaseType *db, int cardDecIdx)
 
 void rareCase (databaseType *db)
 {
-	switchCards(db, db->playerCards[db->bCurrentPlayer][0]);
+	switchCards(db, 0);
 	printf("No valid moves available. Neutral card automatically swapped.\n");
 }
 
@@ -57,7 +57,7 @@ void getInputMove (databaseType *db, pointType *src, pointType *dest, int cardId
 		printf("Destination of Piece: ");
 		scanf("%d %d", &dest->row, &dest->col);
 
-		if (isValid(db,*src,*dest,cardIdx))
+		if (isValid(db,*src,*dest,cardIdx, 1))
 			bValid = 1;	
 
 	} while (!bValid);
@@ -182,7 +182,7 @@ void makeMove (databaseType *db)
 		displayCard(db->cardDb[cardIdx]);
 		getInputMove(db, &src, &dest, cardIdx);
 		movePiece(db, src, dest);
-		switchCards(db, cardIdx);
+		switchCards(db, cardDecIdx);
 		//recordMoves(db); future feature to record moves for game save and hall of fame
 	}
 }

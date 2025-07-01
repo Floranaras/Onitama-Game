@@ -186,6 +186,24 @@ void displayBoard (databaseType *db)
 
 void viewWinner (databaseType *db)
 {
+    printf("\n=== GAME OVER ===\n");
+    
+    if (db->bWinner == BLUE && db->bWinCondition == TEMPLE_WIN) 
+	{
+        printf("%s (Blue) wins by Temple Capture!\n", db->p1);
+    }
+    else if (db->bWinner == BLUE && db->bWinCondition == SENSEI_WIN) 
+	{
+        printf("%s (Blue) wins by Master Capture!\n", db->p1);
+    }
+    else if (db->bWinner == RED && db->bWinCondition == TEMPLE_WIN) 
+	{
+        printf("%s (Red) wins by Temple Capture!\n", db->p2);
+    }
+    else if (db->bWinner == RED && db->bWinCondition == SENSEI_WIN) 
+	{
+        printf("%s (Red) wins by Master Capture!\n", db->p2);
+    }
 
 }
 

@@ -100,12 +100,13 @@ int getCardPatterns (databaseType *db, String30 filename, int idx)
 
 int getCards (databaseType *db)
 {
-	String30 filename = "data/";
+	String30 filename;
 	int j;
 	int bSuccess = 1;
 
 	for (j = 0; j < db->numCards && bSuccess; j++)
 	{
+		strcpy(filename, "data/");
 		strcat(filename, db->cardDb[j].name);
 		strcat(filename, ".txt");
 		
@@ -115,7 +116,6 @@ int getCards (databaseType *db)
 			bSuccess = 0;	
 		}
 		
-		strcpy(filename,"data/");
 	}
 
 	return bSuccess;
