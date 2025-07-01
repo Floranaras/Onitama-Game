@@ -9,15 +9,17 @@ void initDatabase (databaseType *db)
 void initBoard (databaseType *db)
 {
 	int j, k;
-	char temp[SIDE][SIDE] = {{'r','r','R','r','r'}, 
+	char temp[SIDE][SIDE] = {
+							{'r','r','R','r','r'}, 
 							{'.','.','.','.','.'}, 
 							{'.','.','.','.','.'}, 
 							{'.','.','.','.','.'},
-							{'b','b','B','b','b'}};
+							{'b','b','B','b','b'}
+	};
 
-	for (j = 0; j < SIDE; j++) 
+	for (j = 0; j < MAX_BOARD; j++) 
 	{
-		for (k = 0; k < SIDE; k++)
+		for (k = 0; k < MAX_BOARD; k++)
 		{
 			db->board[j][k] = temp[j][k];
 		}
@@ -26,7 +28,7 @@ void initBoard (databaseType *db)
 
 int cardExists (int cardIdx[], int count, int key)
 {
-	int j, k;
+	int j;
 	int bFound = 0;
 
 	for (j = 0; j < count && !bFound; j++)	
@@ -111,7 +113,7 @@ void dealCards(databaseType *db)
 	db->neutralCard = cardIdx[ctr];
 }
 
-void getPlayerNames(String10 name)
+void getName(String10 name)
 {
 	printf("Input Name: ");
 	scanf("%s", name);

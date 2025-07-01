@@ -225,3 +225,225 @@ Color: RED
 . . . . . 
 
 }
+
+===Boar Card===
+Blue Moves : 
+[-1 0]
+[0 -1]
+[0 1]
+
+Red Moves : 
+[1 0]
+[0 1]
+[0 -1]
+
+===Crab Card===
+Blue Moves : 
+[-1 0]
+[0 -2]
+[0 2]
+
+Red Moves : 
+[1 0]
+[0 2]
+[0 -2]
+
+===Crane Card===
+Blue Moves : 
+[-1 0]
+[1 -1]
+[1 1]
+
+Red Moves : 
+[1 0]
+[-1 1]
+[-1 -1]
+
+===Cobra Card===
+Blue Moves : 
+[-1 1]
+[0 -1]
+[1 1]
+
+Red Moves : 
+[1 -1]
+[0 1]
+[-1 -1]
+
+===Dragon Card===
+Blue Moves : 
+[-1 -2]
+[-1 2]
+[1 -1]
+[1 1]
+
+Red Moves : 
+[1 2]
+[1 -2]
+[-1 1]
+[-1 -1]
+
+===Eel Card===
+Blue Moves : 
+[-1 -1]
+[0 1]
+[1 -1]
+
+Red Moves : 
+[1 1]
+[0 -1]
+[-1 1]
+
+===Elephant Card===
+Blue Moves : 
+[-1 -1]
+[-1 1]
+[0 -1]
+[0 1]
+
+Red Moves : 
+[1 1]
+[1 -1]
+[0 1]
+[0 -1]
+
+===Frog Card===
+Blue Moves : 
+[-1 -1]
+[0 -2]
+[1 1]
+
+Red Moves : 
+[1 1]
+[0 2]
+[-1 -1]
+
+===Goose Card===
+Blue Moves : 
+[-1 -1]
+[0 -1]
+[0 1]
+[1 1]
+
+Red Moves : 
+[1 1]
+[0 1]
+[0 -1]
+[-1 -1]
+
+===Horse Card===
+Blue Moves : 
+[-1 0]
+[0 -1]
+[1 0]
+
+Red Moves : 
+[1 0]
+[0 1]
+[-1 0]
+
+===Mantis Card===
+Blue Moves : 
+[-1 -1]
+[-1 1]
+[1 0]
+
+Red Moves : 
+[1 1]
+[1 -1]
+[-1 0]
+
+===Monkey Card===
+Blue Moves : 
+[-1 -1]
+[-1 1]
+[1 -1]
+[1 1]
+
+Red Moves : 
+[1 1]
+[1 -1]
+[-1 1]
+[-1 -1]
+
+===Ox Card===
+Blue Moves : 
+[-1 0]
+[0 1]
+[1 0]
+
+Red Moves : 
+[1 0]
+[0 -1]
+[-1 0]
+
+===Rabbit Card===
+Blue Moves : 
+[-1 1]
+[0 2]
+[1 -1]
+
+Red Moves : 
+[1 -1]
+[0 -2]
+[-1 1]
+
+===Rooster Card===
+Blue Moves : 
+[-1 1]
+[0 -1]
+[0 1]
+[1 -1]
+
+Red Moves : 
+[1 -1]
+[0 1]
+[0 -1]
+[-1 1]
+
+===Tiger Card===
+Blue Moves : 
+[-2 0]
+[1 0]
+
+Red Moves : 
+[2 0]
+[-1 0]
+
+===DEBUG BOARD TEST===
+
+{
+r r R r r 
+. . . . . 
+. . . . . 
+. . . . . 
+b b B b b 
+
+}
+16
+Neutral: 11
+1 7 
+13 14 
+
+===Available Cards===
+ Crab Crane Cobra Dragon Eel Elephant Frog Goose Horse Mantis Monkey Ox Rabbit Rooster Tiger 
+
+===Dealth Cards===
+Blue: Crab Frog 
+Red: Rabbit Rooster 
+Neutral: Monkey 
+===GAME BOARD===
+0 1 2 3 4 
+r r R r r 0
+. . . . . 1
+. . . . . 2
+. . . . . 3
+b b B b b 4
+
+===GAME BOARD===
+4 3 2 1 0 
+b b B b b 4
+. . . . . 3
+. . . . . 2
+. . . . . 1
+r r R r r 0

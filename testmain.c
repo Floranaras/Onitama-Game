@@ -1,4 +1,4 @@
-#include "src/start.c"
+#include "src/display.c"
 
 void printArr (char arr[][SIDE])
 {
@@ -19,6 +19,7 @@ void printArr (char arr[][SIDE])
 
 	printf("\n}\n");
 }
+
 
 void displayInfo (String10 name, int color, char card[][SIDE])
 {
@@ -83,7 +84,7 @@ void testMasterList (databaseType *db)
 
 void displayCardCal (cardType card)
 {
-	int j, k;
+	int j;
 
 	printf("\n===%s Card===\n", card.name);
 
@@ -149,6 +150,10 @@ int main ()
 	testBoard(&db);
 	printf("%d\n", db.numCards);
 	testDealing(&db);
+	viewAvailableCards(&db);
+	viewDealtCard(&db);
+	viewBlueBoard(&db);
+	viewRedBoard(&db);
 
     return 0;
 }
