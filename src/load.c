@@ -143,7 +143,7 @@ void blueMoves (cardType *card, pointType center)
 	for (j = 0; j < card->movesCtr; j++)
 	{
 		card->moves[0][j].row = dest[j].row - center.row;
-		card->moves[0][j].col = dest[j].col - center.row;
+		card->moves[0][j].col = dest[j].col - center.col;
 	}	
 }
 

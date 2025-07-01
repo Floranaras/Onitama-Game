@@ -9,11 +9,12 @@
 #define RED (1)
 #define MAX_MOVES (4)
 #define SIDE (5)
-#define MAX_BOARD (6)
 #define CARDS_PER_PLAYER (2)
 #define MAX_CARDS (30)
 #define MAX_GAME_MOVES (1000)
 #define MASTER_LIST "data/movecards.txt"
+#define TEMPLE_WIN (0)
+#define SENSEI_WIN (1)
 
 /* Aliases */
 typedef char String10[STR10];
@@ -73,7 +74,9 @@ struct databaseTag
     int bWinner;
     int bWinCondition;
 
-    
+	pointType blueTemple;
+	pointType redTemple;
+ 
 };
 
 typedef struct databaseTag databaseType;

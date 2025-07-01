@@ -11,9 +11,9 @@ void initBoard (databaseType *db)
 							{'b','b','B','b','b'}
 	};
 
-	for (j = 0; j < MAX_BOARD; j++) 
+	for (j = 0; j < SIDE; j++) 
 	{
-		for (k = 0; k < MAX_BOARD; k++)
+		for (k = 0; k < SIDE; k++)
 		{
 			db->board[j][k] = temp[j][k];
 		}
@@ -122,4 +122,10 @@ void initDatabase (databaseType *db)
 	dealCards(db);
 	
 	db->bCurrentPlayer = db->cardDb[db->neutralCard].bColor;
+
+	db->blueTemple.row = 4;
+	db->blueTemple.col = 2;
+	db->redTemple.row = 0;
+	db->redTemple.col = 2;
+	
 }

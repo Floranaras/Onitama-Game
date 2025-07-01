@@ -10,6 +10,7 @@ void mainMenu (databaseType *db)
         printf("1] Start Game\n");
         printf("x] Exit\n");
 
+		printf("Enter choice: ");
 		scanf(" %c", &choice);
 
         switch (choice)

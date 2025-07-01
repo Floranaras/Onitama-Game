@@ -1,5 +1,4 @@
 #include "display.c"
-#include <iterator>
 
 void getPieces (char* student, char* sensei, int currentPlayer)
 {
@@ -55,7 +54,8 @@ int isValid (databaseType *db, pointType src, pointType dest, int cardIdx)
 
 	return  isOwnPiece(db, src, student,sensei) && 
 			followsPattern(db, src, dest, cardIdx) &&
-			isInRange(dest);
+			isInRange(dest) &&
+			!isOwnPiece(db, dest, student, sensei);
 }
 
 int findMoves (databaseType *db, pointType src)

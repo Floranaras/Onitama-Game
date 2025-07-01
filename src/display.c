@@ -79,7 +79,7 @@ void viewRowGuide (int key)
 		printf("\n");
 	}
 
-	if (key == RED)
+	else if (key == RED)
 	{
 		for (j = SIDE - 1; j >= 0; j--)
 		{
@@ -94,7 +94,7 @@ void viewBlueBoard (databaseType *db)
 	int j, k;
 
 	
-	printf("\n===GAME BOARD===\n(Blues's Perspective)");
+	printf("\n===GAME BOARD===\n(Blues's Perspective)\n");
 	viewRowGuide(BLUE);
 	for (j = 0; j < SIDE; j++)
 	{
@@ -111,7 +111,7 @@ void viewRedBoard (databaseType *db)
 {
 	int j, k;
 	
-	printf("\n===GAME BOARD===(Red's Perspective)\n");
+	printf("\n===GAME BOARD===\n(Red's Perspective)\n");
 	viewRowGuide(RED);
 	for (j = SIDE - 1; j >= 0; j--)
 	{
@@ -129,7 +129,8 @@ void displayCard (cardType card)
 {
 	int j;
 	int k;
-
+	
+	printf("\n%s Card", card.name);
 	printf("\n{\n");
 
 	for (j = 0; j < SIDE; j++)
@@ -170,9 +171,23 @@ void displayNeutral (databaseType *db)
 	displayCard(db->cardDb[db->neutralCard]);
 }
 
+void displayBoard (databaseType *db)
+{
+	if (db->bCurrentPlayer == BLUE)
+	{
+		viewBlueBoard(db);
+	}
 
+	if (db->bCurrentPlayer == RED)
+	{
+		viewRedBoard(db);
+	}
+}
 
+void viewWinner (databaseType *db)
+{
 
+}
 
 
 
