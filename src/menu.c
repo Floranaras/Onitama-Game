@@ -1,4 +1,4 @@
-#include "../include/head.h"
+#include "game.c"
 
 void gameLoop (databaseType *db)
 {

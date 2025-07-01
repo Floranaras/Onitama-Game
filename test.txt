@@ -17,6 +17,7 @@ Ox
 Rabbit
 Rooster
 Tiger
+Skibidi
 
 ===Boar Card===
 Color: RED
@@ -226,6 +227,19 @@ Color: RED
 
 }
 
+===Skibidi Card===
+Color: BLUE
+===Card PATTERN===
+
+{
+. . x . . 
+. . . . . 
+x . X . x 
+. . . . . 
+. . x . . 
+
+}
+
 ===Boar Card===
 Blue Moves : 
 [-1 0]
@@ -410,6 +424,19 @@ Red Moves :
 [2 0]
 [-1 0]
 
+===Skibidi Card===
+Blue Moves : 
+[-2 0]
+[0 -2]
+[0 2]
+[2 0]
+
+Red Moves : 
+[2 0]
+[0 2]
+[0 -2]
+[-2 0]
+
 ===DEBUG BOARD TEST===
 
 {
@@ -420,18 +447,18 @@ r r R r r
 b b B b b 
 
 }
-16
-Neutral: 11
-1 7 
-13 14 
+17
+Neutral: 16
+7 2 
+13 10 
 
 ===Available Cards===
- Crab Crane Cobra Dragon Eel Elephant Frog Goose Horse Mantis Monkey Ox Rabbit Rooster Tiger 
+ Crab Crane Cobra Dragon Eel Elephant Frog Goose Horse Mantis Monkey Ox Rabbit Rooster Tiger Skibidi 
 
 ===Dealth Cards===
-Blue: Crab Frog 
-Red: Rabbit Rooster 
-Neutral: Monkey 
+Blue: Frog Crane 
+Red: Rabbit Mantis 
+Neutral: Skibidi 
 ===GAME BOARD===
 0 1 2 3 4 
 r r R r r 0
