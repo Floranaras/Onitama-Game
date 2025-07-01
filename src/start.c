@@ -1,11 +1,5 @@
 #include "load.c"
 
-void initDatabase (databaseType *db)
-{
-	db->bGameOver = 0;
-	db->bCurrentPlayer = db->cardDb[db->neutralCard].bColor;
-}
-
 void initBoard (databaseType *db)
 {
 	int j, k;
@@ -120,4 +114,12 @@ void getName(String10 name)
 }
 
 
-
+void initDatabase (databaseType *db)
+{
+	db->bGameOver = 0;
+	initBoard(db);
+	loadCardsFromFile(db);
+	dealCards(db);
+	
+	db->bCurrentPlayer = db->cardDb[db->neutralCard].bColor;
+}

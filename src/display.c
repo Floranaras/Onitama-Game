@@ -1,5 +1,30 @@
 #include "start.c"
 
+void displayWelcomeMessage ()
+{
+	printf("\n===Welcome to Onitama===\n");
+	printf("Pieces: R/r = Red Master/Student, B/b = Blue Master/Student\n");
+	printf("Goal: Capture enemy master or reach their temple (middle of opposite side)\n");
+	
+}
+
+void displayWinCondition ()
+{
+	printf("Win Conditions:\n"); 
+	printf("- Capture opponent's master (R or B)\n");
+	printf("RED wins by reaching (4,2) | BLUE wins by reaching (0,2)\n");
+}
+
+void displayPlayerMenu()
+{
+	printf("\n===Player Menu===\n");
+	printf("1] Make a Move\n");
+	printf("2] View Your Cards\n");
+	printf("3] View Your Opponents Cards\n");
+	printf("4] View Neutral Card\n");
+	printf("5] Clear Screen\n");
+}
+
 void viewAvailableCards (databaseType *db)
 {
 	int j;
@@ -69,7 +94,7 @@ void viewBlueBoard (databaseType *db)
 	int j, k;
 
 	
-	printf("\n===GAME BOARD===\n");
+	printf("\n===GAME BOARD===\n(Blues's Perspective)");
 	viewRowGuide(BLUE);
 	for (j = 0; j < SIDE; j++)
 	{
@@ -86,7 +111,7 @@ void viewRedBoard (databaseType *db)
 {
 	int j, k;
 	
-	printf("\n===GAME BOARD===\n");
+	printf("\n===GAME BOARD===(Red's Perspective)\n");
 	viewRowGuide(RED);
 	for (j = SIDE - 1; j >= 0; j--)
 	{
@@ -117,6 +142,32 @@ void displayCard (cardType card)
 	}
 
 	printf("\n}\n");
+}
+
+void displayYourCard (databaseType *db)
+{
+	int j;
+
+	for (j = 0; j < 2; j++)
+	{
+		displayCard(db->cardDb[db->playerCards[db->bCurrentPlayer][j]]);
+	}
+}
+
+void displayOpponentsCard (databaseType *db)
+{
+	int j;
+	int opp = !db->bCurrentPlayer;
+
+	for (j = 0; j < 2; j++)
+	{
+		displayCard(db->cardDb[db->playerCards[opp][j]]);
+	}
+}
+
+void displayNeutral (databaseType *db)
+{
+	displayCard(db->cardDb[db->neutralCard]);
 }
 
 

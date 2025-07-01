@@ -177,12 +177,9 @@ void initCards (databaseType *db)
 		getMoves(&db->cardDb[j]);
 	}
 }
-
-int loadCardsFromFile (databaseType *db)
+void loadCardsFromFile (databaseType *db)
 {
     loadMasterList(db);
 	getCards(db);
 	initCards(db);
-
-    return 0; 
 }
