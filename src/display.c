@@ -63,6 +63,8 @@ void viewDealtCard (databaseType *db)
 	
 	printf("Neutral: ");
 	printf("%s ", db->cardDb[db->neutralCard].name);
+
+	printf("\n");
 }
 
 void viewRowGuide (int key)
