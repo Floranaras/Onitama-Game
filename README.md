@@ -75,11 +75,36 @@ make release
 make help
 ```
 
-### Option 2: Manual Compilation
+### Option 2: Using build.bat (Windows)
+
+For Windows users, we provide a convenient batch script:
+
+```cmd
+# Simply double-click build.bat or run from command prompt:
+build.bat
+```
+
+This will:
+- Create necessary directories (`obj` and `obj\src`)
+- Compile all source files with proper flags
+- Link everything into `onitama.exe`
+- Display completion message
+
+Then run the game:
+```cmd
+onitama.exe
+```
+
+### Option 3: Manual Compilation
 
 **Step 1: Create output directories**
 ```bash
+# Linux/macOS
 mkdir -p obj/src
+
+# Windows
+mkdir obj
+mkdir obj\src
 ```
 
 **Step 2: Compile source files**
@@ -95,18 +120,30 @@ gcc -Wall -std=c99 -Iinclude -c src/menu.c -o obj/src/menu.o
 
 **Step 3: Link all object files**
 ```bash
+# Linux/macOS
 gcc obj/main.o obj/src/*.o -o onitama
+
+# Windows
+gcc obj/main.o obj/src/*.o -o onitama.exe
 ```
 
 **Step 4: Run the game**
 ```bash
+# Linux/macOS
 ./onitama
+
+# Windows
+onitama.exe
 ```
 
-### Option 3: Simple One-Line Compilation
+### Option 4: Simple One-Line Compilation
 
 ```bash
+# Linux/macOS
 gcc -Wall -std=c99 -Iinclude main.c src/*.c -o onitama
+
+# Windows
+gcc -Wall -std=c99 -Iinclude main.c src/*.c -o onitama.exe
 ```
 
 ## How to Play
