@@ -74,7 +74,7 @@ void movePiece (databaseType *db, pointType src, pointType dest)
 	char temp;
 	char empty = '.';
 
-	if (isEqualToTemple(db,dest))
+	if (isEqualToTemple(db,src))
 	{
 		empty = '*';
 	}
