@@ -6,7 +6,7 @@ void startGame (databaseType *db)
 	displayWelcomeMessage();
 	printf("\033[1;34mBlue Player: \033[0m\n");
 	getName(db->p1);
-	printf("\031[1;33mRed Player: \033[0m\n");
+	printf("\033[1;31mRed Player: \033[0m\n");
 	getName(db->p2);
 
 	printf("\nShuffling Cards...\n");
