@@ -125,7 +125,7 @@ void viewRedBoard (databaseType *db)
 {
 	int j, k;
 	
-	printf("\n===GAME BOARD===\n\033[1;31m(%s's Perspective - RED)[0m\n", db->p2);
+	printf("\n===GAME BOARD===\n\033[1;31m(%s's Perspective - RED)\033[0m\n", db->p2);
 	viewRowGuide(RED);
 	for (j = SIDE - 1; j >= 0; j--)
 	{

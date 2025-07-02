@@ -4,9 +4,9 @@ void startGame (databaseType *db)
 {
 	initDatabase(db);
 	displayWelcomeMessage();
-	printf("Blue Player: \n");
+	printf("\033[1;34mBlue Player: \033[0m\n");
 	getName(db->p1);
-	printf("Red Player: \n");
+	printf("\031[1;33mRed Player: \033[0m\n");
 	getName(db->p2);
 
 	printf("\nShuffling Cards...\n");
