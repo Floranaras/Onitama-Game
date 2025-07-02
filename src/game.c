@@ -48,19 +48,42 @@ void getInputCard (databaseType *db, int *cardDecIdx, int *cardIdx)
 void getInputMove (databaseType *db, pointType *src, pointType *dest, int cardIdx)
 {
 	int bValid = 0;
+    int srcRow, srcCol, destRow, destCol;
 
-	do 
-	{
-		printf("Format: row col\n");
-		printf("Coordinates of Piece to Move: ");
-		scanf("%d %d", &src->row, &src->col);
-		printf("Destination of Piece: ");
-		scanf("%d %d", &dest->row, &dest->col);
+    do 
+    {
+        int bInputOK = 1;
 
-		if (isValid(db,*src,*dest,cardIdx, 1))
-			bValid = 1;	
+        printf("Format: row col\n");
 
-	} while (!bValid);
+        printf("Coordinates of Piece to Move: ");
+        if (scanf("%d %d", &srcRow, &srcCol) != 2)
+            bInputOK = 0;
+
+        printf("Destination of Piece: ");
+        if (scanf("%d %d", &destRow, &destCol) != 2)
+            bInputOK = 0;
+
+        if (bInputOK)
+        {
+            src->row = srcRow;
+            src->col = srcCol;
+            dest->row = destRow;
+            dest->col = destCol;
+
+            if (isValid(db, *src, *dest, cardIdx, 1))
+                bValid = 1;
+            else
+                printf("Invalid move.\n");
+        }
+        else
+        {
+            printf("Invalid input. Please enter numbers in 'row col' format.\n");
+        }
+
+        // flush buffer (only needed if scanf fails and extra junk remains)
+        while (getchar() != '\n');  // only if allowed
+    } while (!bValid);
 }
 
 int isEqualToTemple (databaseType *db, pointType dest)
