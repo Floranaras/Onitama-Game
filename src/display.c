@@ -96,7 +96,7 @@ void viewBlueBoard (databaseType *db)
 	int j, k;
 
 	
-	printf("\n===GAME BOARD===\n(Blues's Perspective)\n");
+	printf("\n===GAME BOARD===\n(%s's Perspective - BLUE)\n", db->p1);
 	viewRowGuide(BLUE);
 	for (j = 0; j < SIDE; j++)
 	{
@@ -113,7 +113,7 @@ void viewRedBoard (databaseType *db)
 {
 	int j, k;
 	
-	printf("\n===GAME BOARD===\n(Red's Perspective)\n");
+	printf("\n===GAME BOARD===\n(%s's Perspective - RED)\n", db->p2);
 	viewRowGuide(RED);
 	for (j = SIDE - 1; j >= 0; j--)
 	{
