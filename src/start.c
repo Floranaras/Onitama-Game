@@ -107,10 +107,10 @@ void dealCards(databaseType *db)
 	db->neutralCard = cardIdx[ctr];
 }
 
-void getName(String10 name)
+void getName(String50 name)
 {
 	printf("Input Name: ");
-	scanf("%s", name);
+    scanf(" %[^\n]", name); 
 }
 
 

@@ -8,7 +8,7 @@
 void initBoard(databaseType *db);
 int cardExists(int cardIdx[], int count, int key);
 void dealCards(databaseType *db);
-void getName(String10 name);
+void getName(String50 name);
 void initDatabase(databaseType *db);
 
 #endif

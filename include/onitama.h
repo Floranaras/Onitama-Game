@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define STR50 (51)
 #define STR30 (31)
 #define STR10 (11)
 #define BLUE (0) 
@@ -22,6 +23,7 @@
 /* Aliases */
 typedef char String10[STR10];
 typedef char String30[STR30];
+typedef char String50[STR50];
 
 /* Structures */
 
@@ -69,8 +71,8 @@ struct databaseTag
     moveType gameMoves[MAX_GAME_MOVES];
     int gameMovesCtr;
 
-    String10 p1;
-    String10 p2;
+    String50 p1;
+    String50 p2;
 
     int bCurrentPlayer;
     int bGameOver;
