@@ -43,7 +43,7 @@ void viewDealtCard (databaseType *db)
 {
 	int j;
 
-	printf("\n===Dealth Cards===\n");
+	printf("\n===Dealt Cards===\n");
 	printf("Blue: ");
 
 	for (j = 0; j < 2; j++)

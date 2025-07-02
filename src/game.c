@@ -36,7 +36,7 @@ void getInputCard (databaseType *db, int *cardDecIdx, int *cardIdx)
 		printf("Select a card: \n");
 		printf("0] %s\n", db->cardDb[db->playerCards[db->bCurrentPlayer][0]].name);
 		printf("1] %s\n", db->cardDb[db->playerCards[db->bCurrentPlayer][1]].name);
-		printf("Enter card of choice:");
+		printf("Enter card of choice: ");
 		scanf("%d", cardDecIdx);
 	
 
@@ -52,7 +52,7 @@ void getInputMove (databaseType *db, pointType *src, pointType *dest, int cardId
 	do 
 	{
 		printf("Format: row col\n");
-		printf("Coordinates of Piece to Move:");
+		printf("Coordinates of Piece to Move: ");
 		scanf("%d %d", &src->row, &src->col);
 		printf("Destination of Piece: ");
 		scanf("%d %d", &dest->row, &dest->col);
