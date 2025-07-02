@@ -104,17 +104,18 @@ void viewBlueBoard (databaseType *db)
 		{
 			if (db->board[j][k] == 'b' || db->board[j][k] == 'B')
 			{
-				printf("\033[1;34m%c \033[0m\n", db->board[j][k]);
+				printf("\033[1;34m%c \033[0m", db->board[j][k]);
 			}
 			else if (db->board[j][k] == 'r' || db->board[j][k] == 'R')
 			{
-				printf("\033[1;31m%c \033[0m\n", db->board[j][k]);
+				printf("\033[1;31m%c \033[0m", db->board[j][k]);
 			}
 			else
 			{
 				printf("%c ", db->board[j][k]);
 			}
 		}
+		
 		printf("%d", j);
 		printf("\n");
 	}
@@ -130,7 +131,18 @@ void viewRedBoard (databaseType *db)
 	{
 		for (k = SIDE - 1; k >= 0; k--)
 		{
-			printf("%c ", db->board[j][k]);
+			if (db->board[j][k] == 'b' || db->board[j][k] == 'B')
+			{
+				printf("\033[1;34m%c \033[0m", db->board[j][k]);
+			}
+			else if (db->board[j][k] == 'r' || db->board[j][k] == 'R')
+			{
+				printf("\033[1;31m%c \033[0m", db->board[j][k]);
+			}
+			else
+			{
+				printf("%c ", db->board[j][k]);
+			}
 		}
 
 		printf("%d", j);
