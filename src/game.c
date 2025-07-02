@@ -33,7 +33,7 @@ void getInputCard (databaseType *db, int *cardDecIdx, int *cardIdx)
 {
 	do 
 	{
-		printf("Select a card: \n");
+		printf("\nSelect a card: \n");
 		printf("0] %s\n", db->cardDb[db->playerCards[db->bCurrentPlayer][0]].name);
 		printf("1] %s\n", db->cardDb[db->playerCards[db->bCurrentPlayer][1]].name);
 		printf("Enter card of choice: ");
