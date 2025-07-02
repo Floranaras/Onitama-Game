@@ -10,7 +10,7 @@ void displayWinCondition(void);
 void displayPlayerMenu(void);
 void viewAvailableCards(databaseType *db);
 void viewDealtCard(databaseType *db);
-void viewRowGuide(int key);
+void viewColumnGuide(int key);
 void viewBlueBoard(databaseType *db);
 void viewRedBoard(databaseType *db);
 void displayCard(cardType card);

@@ -67,7 +67,7 @@ void viewDealtCard (databaseType *db)
 	printf("\n");
 }
 
-void viewRowGuide (int key)
+void viewColumnGuide (int key)
 {
 	int j;
 
@@ -97,7 +97,7 @@ void viewBlueBoard (databaseType *db)
 
 	
 	printf("\n===GAME BOARD===\n(%s's Perspective - BLUE)\n", db->p1);
-	viewRowGuide(BLUE);
+	viewColumnGuide(BLUE);
 	for (j = 0; j < SIDE; j++)
 	{
 		for (k = 0; k < SIDE; k++)
@@ -114,7 +114,7 @@ void viewRedBoard (databaseType *db)
 	int j, k;
 	
 	printf("\n===GAME BOARD===\n(%s's Perspective - RED)\n", db->p2);
-	viewRowGuide(RED);
+	viewColumnGuide(RED);
 	for (j = SIDE - 1; j >= 0; j--)
 	{
 		for (k = SIDE - 1; k >= 0; k--)
