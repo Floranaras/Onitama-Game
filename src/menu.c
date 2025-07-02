@@ -1,4 +1,4 @@
-#include "game.c"
+#include "../include/menu.h"
 
 void mainMenu (databaseType *db)
 {

@@ -1,4 +1,4 @@
-#include "display.c"
+#include "../include/check.h"
 
 void getPieces (char* student, char* sensei, int currentPlayer)
 {

@@ -1,4 +1,4 @@
-#include "check.c"
+#include "../include/game.h"
 
 void startGame (databaseType *db)
 {

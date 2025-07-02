@@ -1,4 +1,5 @@
-#include "src/menu.c"
+#include "include/onitama.h"
+#include "include/menu.h"
 
 int main ()
 {

@@ -1,4 +1,6 @@
-#include "src/display.c"
+#include <stdio.h>
+#include <string.h>
+#include "../include/game.h"
 
 void printArr (char arr[][SIDE])
 {

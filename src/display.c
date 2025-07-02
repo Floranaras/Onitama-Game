@@ -1,4 +1,4 @@
-#include "start.c"
+#include "../include/display.h"
 
 void displayWelcomeMessage ()
 {

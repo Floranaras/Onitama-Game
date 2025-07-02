@@ -1,4 +1,4 @@
-#include "load.c"
+#include "../include/start.h"
 
 void initBoard (databaseType *db)
 {
