@@ -187,6 +187,15 @@ void makeMove (databaseType *db)
 	}
 }
 
+void clearScreen()
+{
+	#ifdef _WIN32
+
+	#else
+		system("clear");
+	#endif
+}
+
 void playerMenu (databaseType *db)
 {
 	int choice;
@@ -203,7 +212,7 @@ void playerMenu (databaseType *db)
 			case 2: displayYourCard(db); break;
 			case 3: displayOpponentsCard(db); break;
 			case 4: displayNeutral(db); break;
-			case 5: system("clear"); displayBoard(db); break;
+			case 5: clearScreen(); displayBoard(db); break;
 			default: printf("Invalid Input!\n");
 		}
 	}while (choice != 1);

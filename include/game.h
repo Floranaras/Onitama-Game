@@ -16,6 +16,7 @@ void checkForTempleWin(databaseType *db, int *redTempleCapture, int *blueTempleC
 void checkForSensei(databaseType *db, int *redFound, int *blueFound);
 void checkForWin(databaseType *db);
 void makeMove(databaseType *db);
+void clearScreen();
 void playerMenu(databaseType *db);
 void gameLoop(databaseType *db);
 
