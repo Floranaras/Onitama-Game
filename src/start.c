@@ -1,5 +1,11 @@
 #include "../include/start.h"
 
+/*
+	This function initializes the game board with the default Onitama setup.
+	Precondition: The databaseType structure is defined and the board is a 5x5 grid.
+
+	@param db a pointer to the databaseType structure where the board will be initialized
+*/
 void initBoard (databaseType *db)
 {
 	int j, k;
@@ -20,6 +26,16 @@ void initBoard (databaseType *db)
 	}
 }
 
+/*
+	This function checks if a card index already exists in the cardIdx array.
+	Precondition: cardIdx is an array of integers, count is the number of elements in cardIdx, and key is the integer to check for existence.
+
+	@param cardIdx an array of integers representing card indices
+	@param count the number of elements in cardIdx
+	@param key the integer to check for existence in cardIdx
+
+	@return 1 if key exists in cardIdx, otherwise 0
+*/
 int cardExists (int cardIdx[], int count, int key)
 {
 	int j;
@@ -74,6 +90,14 @@ void dealCards (databaseType *db)
 }
 */
 
+/*
+	This function deals cards to the players and assigns a neutral card.
+	Precondition: The databaseType structure is initialized and contains the number of cards available.
+
+	@param db a pointer to the databaseType structure containing the game data
+
+	@return this function does not return a value, it updates the playerCards and neutralCard in the databaseType structure
+*/
 void dealCards(databaseType *db)
 {
 	int j = 0, k = 0, ctr = 0;
@@ -107,13 +131,28 @@ void dealCards(databaseType *db)
 	db->neutralCard = cardIdx[ctr];
 }
 
+/*
+	This function asks  the user to input their name.
+	Precondition: The String50 type is defined as a character array of size 50.
+
+	@param name a String50 type where the user's name will be stored
+
+	@return this function does not return a value, it updates the name with user input
+*/
 void getName(String50 name)
 {
 	printf("Input Name: ");
     scanf(" %[^\n]", name); 
 }
 
+/*
+	This function initializes the game database with default values and sets up the game state.
+	Precondition: The databaseType structure is defined and contains the necessary fields for the game state.
 
+	@param db a pointer to the databaseType structure where the game state will be initialized
+
+	@return this function does not return a value, it updates the database with initial game state
+*/
 void initDatabase (databaseType *db)
 {
 	db->bGameOver = 0;
@@ -126,6 +165,5 @@ void initDatabase (databaseType *db)
 	db->blueTemple.row = 4;
 	db->blueTemple.col = 2;
 	db->redTemple.row = 0;
-	db->redTemple.col = 2;
-	
+	db->redTemple.col = 2;	
 }
