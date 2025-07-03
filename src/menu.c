@@ -1,5 +1,13 @@
 #include "../include/menu.h"
 
+/*
+    This function displays the main menu of the Onitama game and handles user input for starting the game or exiting.
+    Precondition: The databaseType structure is initialized and contains the game data.
+
+    @param db a pointer to the databaseType structure containing the game data
+
+    @return this function does not return a value, it runs the main menu loop
+*/
 void mainMenu (databaseType *db)
 {
     char choice;
