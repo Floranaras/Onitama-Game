@@ -132,7 +132,7 @@ void getInputMove (databaseType *db, pointType *src, pointType *dest, int cardId
 }
 
 /*
-	This function checks if the source point is equal to either temple's coordinates.
+	This function checks if the destination point is equal to either temple's coordinates.
 	Precondition: The databaseType structure is initialized and contains the temple coordinates.
 
 	@param db a pointer to the databaseType structure containing the game data
@@ -146,6 +146,16 @@ int isEqualToTemple (databaseType *db, pointType dest)
 	(dest.row == db->blueTemple.row && dest.col == db->blueTemple.col);
 }
 
+/*
+	This function moves a piece from the source coordinates to the destination coordinates on the game board.
+	Precondition: The databaseType structure is initialized and contains the game board.
+
+	@param db a pointer to the databaseType structure containing the game data
+	@param src a pointType structure representing the source coordinates
+	@param dest a pointType structure representing the destination coordinates
+
+	@return this function does not return a value, it updates the game board with the moved piece
+*/
 void movePiece (databaseType *db, pointType src, pointType dest)
 {
 	char temp;
@@ -161,6 +171,16 @@ void movePiece (databaseType *db, pointType src, pointType dest)
 	db->board[dest.row][dest.col] = temp;
 }
 
+/*
+	This function checks if either temple has been captured by the opposing player.
+	Precondition: The databaseType structure is initialized and contains the game board and temple coordinates.
+
+	@param db a pointer to the databaseType structure containing the game data
+	@param redTempleCapture a pointer to an integer where the red temple capture status will be stored
+	@param blueTempleCapture a pointer to an integer where the blue temple capture status will be stored
+
+	@return this function does not return a value, it updates the capture status of both temples
+*/
 void checkForTempleWin (databaseType *db, int *redTempleCapture, int *blueTempleCapture)
 {
 
@@ -178,6 +198,16 @@ void checkForTempleWin (databaseType *db, int *redTempleCapture, int *blueTemple
 
 }
 
+/*
+	This function checks if either player has captured the opponent's sensei piece by checking if the sensei is still in the board.
+	Precondition: The databaseType structure is initialized and contains the game board.
+
+	@param db a pointer to the databaseType structure containing the game data
+	@param redFound a pointer to an integer where the red sensei capture status will be stored
+	@param blueFound a pointer to an integer where the blue sensei capture status will be stored
+
+	@return this function does not return a value, it updates the capture status of both senseis
+*/
 void checkForSensei (databaseType *db, int *redFound, int *blueFound)
 {
 	int j, k;
@@ -201,6 +231,14 @@ void checkForSensei (databaseType *db, int *redFound, int *blueFound)
 	}
 }
 
+/*
+	This function checks the game state to determine if there is a winner based on the current board and sensei status.
+	Precondition: The databaseType structure is initialized and contains the game board, sensei, and temple coordinates.
+
+	@param db a pointer to the databaseType structure containing the game data
+
+	@return this function does not return a value, it updates the game over status and winner if a win condition is met
+*/
 void checkForWin (databaseType *db)
 {
 	int blueSenseiFound = 0;
@@ -240,6 +278,14 @@ void checkForWin (databaseType *db)
 	}
 }
 
+/*
+	This function handles the player's turn by checking for valid moves, getting input for the card and move, and executing the move.
+	Precondition: The databaseType structure is initialized and contains the game state.
+
+	@param db a pointer to the databaseType structure containing the game data
+
+	@return this function does not return a value, it updates the game state based on the player's actions
+*/
 void makeMove (databaseType *db)
 {
 	pointType src, dest;
@@ -263,6 +309,12 @@ void makeMove (databaseType *db)
 	}
 }
 
+/*
+	This function clears the console screen based on the operating system.
+	Precondition: The system command is available for clearing the screen.
+
+	@return this function does not return a value, it clears the console output
+*/
 void clearScreen()
 {
 	#ifdef _WIN32
@@ -273,6 +325,14 @@ void clearScreen()
 	#endif
 }
 
+/*
+	This function displays the player's menu options and handles the player's choice of action.
+	Precondition: The databaseType structure is initialized and contains the game state.
+
+	@param db a pointer to the databaseType structure containing the game data
+
+	@return this function does not return a value, it updates the game state based on the player's actions
+*/
 void playerMenu (databaseType *db)
 {
 	int choice;
@@ -293,9 +353,16 @@ void playerMenu (databaseType *db)
 			default: printf("Invalid Input!\n");
 		}
 	}while (choice != 1);
-	
-
 }
+
+/*
+	This function starts the game loop, which continues until the game is over.
+	Precondition: The databaseType structure is initialized and contains the game state.
+
+	@param db a pointer to the databaseType structure containing the game data
+
+	@return this function does not return a value, it runs the main game loop
+*/
 void gameLoop (databaseType *db)
 {
 	startGame(db);
