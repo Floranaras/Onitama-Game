@@ -70,9 +70,9 @@ $(TEST_TARGET): $(OBJDIR) $(TEST_OBJECTS)
 $(OBJDIR):
 	@echo "$(YELLOW)📁 Creating build directories...$(NC)"
 ifeq ($(DETECTED_OS),Windows)
-	@if not exist "$(OBJDIR)" $(MKDIR_CMD) "$(OBJDIR)" 2>nul
-	@if not exist "$(OBJDIR)$(PATH_SEP)$(SRCDIR)" $(MKDIR_CMD) "$(OBJDIR)$(PATH_SEP)$(SRCDIR)" 2>nul
-	@if not exist "$(OBJDIR)$(PATH_SEP)$(TESTDIR)" $(MKDIR_CMD) "$(OBJDIR)$(PATH_SEP)$(TESTDIR)" 2>nul
+	@if not exist "$(OBJDIR)" mkdir "$(OBJDIR)"
+	@if not exist "$(OBJDIR)\$(SRCDIR)" mkdir "$(OBJDIR)\$(SRCDIR)"
+	@if not exist "$(OBJDIR)\$(TESTDIR)" mkdir "$(OBJDIR)\$(TESTDIR)"
 else
 	@$(MKDIR_CMD) $(OBJDIR)
 	@$(MKDIR_CMD) $(OBJDIR)/$(SRCDIR)
@@ -112,8 +112,8 @@ quick-test:
 clean:
 	@echo "$(RED)🧹 Cleaning build artifacts...$(NC)"
 ifeq ($(DETECTED_OS),Windows)
-	@if exist "$(OBJDIR)" $(RM_CMD) "$(OBJDIR)" 2>nul
-	@if exist "$(TESTDIR)$(PATH_SEP)quick_test$(EXE_EXT)" del "$(TESTDIR)$(PATH_SEP)quick_test$(EXE_EXT)" 2>nul
+	@if exist "$(OBJDIR)" rmdir /s /q "$(OBJDIR)"
+	@if exist "$(TESTDIR)\quick_test$(EXE_EXT)" del "$(TESTDIR)\quick_test$(EXE_EXT)"
 else
 	@$(RM_CMD) $(OBJDIR) 2>/dev/null || true
 	@$(RM_CMD) $(TESTDIR)/quick_test 2>/dev/null || true
@@ -177,11 +177,19 @@ count:
 # ========== SETUP PROJECT ==========
 setup:
 	@echo "$(YELLOW)🔧 Setting up project directories...$(NC)"
+ifeq ($(DETECTED_OS),Windows)
+	@if not exist "$(SRCDIR)" mkdir "$(SRCDIR)"
+	@if not exist "$(INCDIR)" mkdir "$(INCDIR)"
+	@if not exist "$(DATADIR)" mkdir "$(DATADIR)"
+	@if not exist "$(TESTDIR)" mkdir "$(TESTDIR)"
+	@if not exist "$(OBJDIR)" mkdir "$(OBJDIR)"
+else
 	@$(MKDIR_CMD) $(SRCDIR) 2>/dev/null || true
 	@$(MKDIR_CMD) $(INCDIR) 2>/dev/null || true
 	@$(MKDIR_CMD) $(DATADIR) 2>/dev/null || true
 	@$(MKDIR_CMD) $(TESTDIR) 2>/dev/null || true
 	@$(MKDIR_CMD) $(OBJDIR) 2>/dev/null || true
+endif
 	@echo "$(GREEN)✓ Project setup complete$(NC)"
 
 # ========== HELP ==========

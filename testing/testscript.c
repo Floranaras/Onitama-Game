@@ -979,8 +979,8 @@ int main() {
     printf("Success rate: %.1f%%\n", (float)tests_passed / total_tests * 100);
     
     if (tests_failed == 0) {
-        printf("\n\033[32m🎉 ALL TESTS PASSED! Game implementation verified! 🎉\033[0m\n");
-        printf("\n\033[33m🎵 Opening your reward... 🎵\033[0m\n");
+        printf("\n\033[32m ALL TESTS PASSED! Game implementation verified! \033[0m\n");
+        printf("\n\033[33m Opening your reward... \033[0m\n");
         
         // Cross-platform browser opening
         #ifdef _WIN32
