@@ -51,44 +51,6 @@ int cardExists (int cardIdx[], int count, int key)
 
 	return bFound;
 }
-/*
-void dealCards (databaseType *db)
-{
-	int j = 0;
-	int k = 0;
-	int ctr = 0;
-	int randNum;
-	int cardIdx[5];
-
-	for (j = 0; j < 5; j++)
-	{
-		cardIdx[j] = -1;
-	}
-
-	do
-	{
-		randNum = rand() % db->numCards;
-
-		if (!cardExists(cardIdx, j, randNum))
-		{
-			cardIdx[j] = randNum;
-			j++;
-		}
-
-	} while (j < 5);
-
-	for (j = 0; j < CARDS_PER_PLAYER; j++)
-	{
-		for (k = 0; k < CARDS_PER_PLAYER; k++)
-		{
-			db->playerCards[j][k] = cardIdx[ctr];
-			ctr++;
-		}
-	}
-
-	db->neutralCard = cardIdx[ctr];
-}
-*/
 
 /*
 	This function deals cards to the players and assigns a neutral card.
