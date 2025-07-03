@@ -156,6 +156,20 @@ int main ()
 	viewDealtCard(&db);
 	viewBlueBoard(&db);
 	viewRedBoard(&db);
+	
+	db.board[2][2] = 'b';
+	printf("\nEXPECTED (1) = %d\n", isOwnPiece(&db, (pointType){2, 2}, 'b', 'B')); // student
+	db.board[3][1] = 'B';
+	printf("EXPECTED (1) = %d\n", isOwnPiece(&db, (pointType){3, 1}, 'b', 'B')); // sensei
+	db.board[1][0] = 'r';
+	printf("EXPECTED (0) = %d\n", isOwnPiece(&db, (pointType){1, 0}, 'b', 'B')); // opponent's piece
+	db.board[4][4] = '.';
+	printf("EXPECTED (0) = %d\n", isOwnPiece(&db, (pointType){4, 4}, 'b', 'B')); // empty space
+	db.board[0][0] = 'X';
+	printf("EXPECTED (0) = %d\n\n", isOwnPiece(&db, (pointType){4, 4}, 'b', 'B')); // invalid piece
+
+	db.cardDb[db.neutralCard].card[0][1] = 1;
+	displayCard(db.cardDb[db.neutralCard]);
 
     return 0;
 }

@@ -1,13 +1,22 @@
 #include "../include/display.h"
 
+/*
+   This function displays the welcome message and basic instructions for the Onitama game.
+
+   @return this function does not return a value, it prints the welcome message to the screen
+*/
 void displayWelcomeMessage ()
 {
 	printf("\n===Welcome to Onitama===\n");
 	printf("Pieces: R/r = Red Master/Student, B/b = Blue Master/Student\n");
 	printf("Goal: Capture enemy master or reach their temple (middle of opposite side)\n");
-	
 }
 
+/*
+   This function displays the win conditions for the Onitama game.
+
+   @return this function does not return a value, it prints the win conditions to the screen
+*/
 void displayWinCondition ()
 {
 	printf("Win Conditions:\n"); 
@@ -15,6 +24,11 @@ void displayWinCondition ()
 	printf("RED wins by reaching (4,2) | BLUE wins by reaching (0,2)\n");
 }
 
+/*
+   This function displays the player menu options for the Onitama game.
+
+   @return this function does not return a value, it prints the player menu to the screen
+*/
 void displayPlayerMenu()
 {
 	printf("\n===Player Menu===\n");
@@ -25,6 +39,14 @@ void displayPlayerMenu()
 	printf("5] Clear Screen\n");
 }
 
+/*
+   This function displays the available cards in the Onitama game.
+   Precondition: The databaseType structure is initialized and contains the card data.
+
+   @param db a pointer to the databaseType structure containing the game data
+
+   @return this function does not return a value, it prints the available cards to the screen
+*/
 void viewAvailableCards (databaseType *db)
 {
 	int j;
@@ -39,6 +61,14 @@ void viewAvailableCards (databaseType *db)
 	printf("\n");
 }
 
+/*
+   This function displays the cards that have been dealt to the players and the neutral card.
+   Precondition: The databaseType structure is initialized and contains the player cards and neutral card.
+
+   @param db a pointer to the databaseType structure containing the game data
+
+   @return this function does not return a value, it prints the dealt cards to the screen
+*/
 void viewDealtCard (databaseType *db)
 {
 	int j;
@@ -67,6 +97,14 @@ void viewDealtCard (databaseType *db)
 	printf("\n");
 }
 
+/*
+   This function displays the column guide for the game board based on the player's perspective.
+   Precondition: The key parameter is either BLUE or RED to determine the perspective.
+
+   @param key an integer representing the player's color (BLUE for 0 or RED for 1)
+
+   @return this function does not return a value, it prints the column guide to the screen
+*/
 void viewColumnGuide (int key)
 {
 	int j;
@@ -91,6 +129,15 @@ void viewColumnGuide (int key)
 		printf("\n");
 	}
 }
+
+/*
+   This function displays the game board from the perspective of the blue player.
+   Precondition: The databaseType structure is initialized and contains the game board data.
+
+   @param db a pointer to the databaseType structure containing the game data
+
+   @return this function does not return a value, it prints the blue player's perspective of the game board to the screen
+*/
 void viewBlueBoard (databaseType *db)
 {
 	int j, k;
@@ -109,6 +156,14 @@ void viewBlueBoard (databaseType *db)
 	}
 }
 
+/*
+   This function displays the game board from the perspective of the red player.
+   Precondition: The databaseType structure is initialized and contains the game board data.
+
+   @param db a pointer to the databaseType structure containing the game data
+
+   @return this function does not return a value, it prints the red player's perspective of the game board to the screen
+*/
 void viewRedBoard (databaseType *db)
 {
 	int j, k;
@@ -127,6 +182,14 @@ void viewRedBoard (databaseType *db)
 	}
 }
 
+/*
+   This function displays the details of a specific card, including its name and movement pattern.
+   Precondition: The cardType structure is initialized and contains the card data.
+
+   @param card a cardType structure containing the card information to display
+
+   @return this function does not return a value, it prints the card details to the screen
+*/
 void displayCard (cardType card)
 {
 	int j;
@@ -147,6 +210,14 @@ void displayCard (cardType card)
 	printf("\n}\n");
 }
 
+/*
+   This function displays the player's own cards.
+   Precondition: The databaseType structure is initialized and contains the player's card data.
+
+   @param db a pointer to the databaseType structure containing the game data
+
+   @return this function does not return a value, it prints the player's cards to the screen
+*/
 void displayYourCard (databaseType *db)
 {
 	int j;
@@ -157,6 +228,14 @@ void displayYourCard (databaseType *db)
 	}
 }
 
+/*
+   This function displays the opponent's cards.
+   Precondition: The databaseType structure is initialized and contains the opponent's card data.
+
+   @param db a pointer to the databaseType structure containing the game data
+
+   @return this function does not return a value, it prints the opponent's cards to the screen
+*/
 void displayOpponentsCard (databaseType *db)
 {
 	int j;
@@ -168,11 +247,27 @@ void displayOpponentsCard (databaseType *db)
 	}
 }
 
+/*
+   This function displays the neutral card.
+   Precondition: The databaseType structure is initialized and contains the neutral card data.
+
+   @param db a pointer to the databaseType structure containing the game data
+
+   @return this function does not return a value, it prints the neutral card to the screen
+*/
 void displayNeutral (databaseType *db)
 {
 	displayCard(db->cardDb[db->neutralCard]);
 }
 
+/*
+   This function displays the current game board based on the active player.
+   Precondition: The databaseType structure is initialized and contains the current player's information.
+
+   @param db a pointer to the databaseType structure containing the game data
+
+   @return this function does not return a value, it prints the game board to the screen
+*/
 void displayBoard (databaseType *db)
 {
 	if (db->bCurrentPlayer == BLUE)
@@ -186,6 +281,14 @@ void displayBoard (databaseType *db)
 	}
 }
 
+/*
+   This function displays the winner of the game based on the game state stored in the database.
+   Precondition: The databaseType structure is initialized and contains the game outcome information.
+
+   @param db a pointer to the databaseType structure containing the game data
+
+   @return this function does not return a value, it prints the winner and win condition to the screen
+*/
 void viewWinner (databaseType *db)
 {
     printf("\n=== GAME OVER ===\n");
@@ -206,7 +309,6 @@ void viewWinner (databaseType *db)
 	{
         printf("%s (Red) wins by Master Capture!\n", db->p2);
     }
-
 }
 
 

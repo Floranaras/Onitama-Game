@@ -1,5 +1,13 @@
 #include "../include/game.h"
 
+/*
+	This function initializes the game database with default values, including the board setup, player names, and card database.
+	Precondition: The databaseType structure is defined and the card database is loaded.
+	
+	@param db a pointer to the databaseType structure to initialize
+
+	@return this function does not return a value, it sets up the initial game state
+*/
 void startGame (databaseType *db)
 {
 	initDatabase(db);
@@ -14,6 +22,14 @@ void startGame (databaseType *db)
 	viewDealtCard(db);	
 }
 
+/*
+	This function checks if the current player has any valid moves available.
+	Precondition: The databaseType structure is initialized and contains the game state.
+
+	@param db a pointer to the databaseType structure containing the game data
+
+	@return 1 if there are valid moves, otherwise 0
+*/
 void switchCards (databaseType *db, int cardDecIdx)
 {
 	int temp;
@@ -23,12 +39,30 @@ void switchCards (databaseType *db, int cardDecIdx)
 	db->neutralCard = temp;
 }
 
+/*
+	This function handles the case when there are no valid moves available for the current player.
+	Precondition: The databaseType structure is initialized and contains the game state.
+
+	@param db a pointer to the databaseType structure containing the game data
+
+	@return this function does not return a value, it prints a message and switches cards
+*/
 void rareCase (databaseType *db)
 {
 	switchCards(db, 0);
 	printf("No valid moves available. Neutral card automatically swapped.\n");
 }
 
+/*
+	This function prompts the user to select a card from their available cards.
+	Precondition: The databaseType structure is initialized and contains the player's cards.
+
+	@param db a pointer to the databaseType structure containing the game data
+	@param cardDecIdx a pointer to an integer where the selected card index will be stored
+	@param cardIdx a pointer to an integer where the actual card index will be stored
+
+	@return this function does not return a value, it updates the card indices based on user input
+*/
 void getInputCard (databaseType *db, int *cardDecIdx, int *cardIdx)
 {
 	do 
