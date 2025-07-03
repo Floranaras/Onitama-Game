@@ -1,6 +1,6 @@
 # Onitama Game
 
-A complete C implementation of the two-player turn-based strategy game Onitama for CCPROG2 Project.
+A complete C implementation of the two-player turn-based strategy game Onitama.
 
 ## Game Description
 
@@ -24,7 +24,13 @@ Onitama is a strategic board game where each player controls five pieces (one ma
 ```
 Onitama-Game/
 ├── include/           # Header files
-│   └── head.h        # Main definitions and structures
+│   ├── onitama.h     # Main definitions and structures
+│   ├── check.h       # Move validation headers
+│   ├── display.h     # Display function headers
+│   ├── game.h        # Game logic headers
+│   ├── load.h        # File loading headers
+│   ├── menu.h        # Menu system headers
+│   └── start.h       # Initialization headers
 ├── src/              # Source files
 │   ├── load.c        # Card loading and parsing
 │   ├── start.c       # Board and game setup
@@ -35,7 +41,14 @@ Onitama-Game/
 ├── data/             # Move card data files
 │   ├── movecards.txt # List of available cards
 │   └── [Card].txt    # Individual card movement patterns
+├── testing/          # Test files and utilities
+│   ├── testscript.c  # Comprehensive test suite
+│   └── test_onitama  # Compiled test executable
+├── obj/              # Compiled object files
+│   └── src/          # Source object files
 ├── main.c            # Program entry point
+├── Makefile          # Build automation
+├── build.bat         # Windows build script
 └── README.md         # This file
 ```
 
@@ -146,6 +159,173 @@ gcc -Wall -std=c99 -Iinclude main.c src/*.c -o onitama
 gcc -Wall -std=c99 -Iinclude main.c src/*.c -o onitama.exe
 ```
 
+## Testing the Implementation
+
+We provide a comprehensive test suite to verify the correctness of the game implementation. The test script validates all major game functions and provides colorful output with pass/fail indicators.
+
+### Running the Test Suite
+
+**Note**: Place the test script as `testing/testscript.c` before running these commands.
+
+#### Option 1: Quick Test Compilation and Run
+
+```bash
+# Linux/macOS/WSL
+gcc -Wall -Wextra -std=c99 -Iinclude testing/testscript.c src/*.c -o testing/test_onitama
+./testing/test_onitama
+
+# Windows
+gcc -Wall -Wextra -std=c99 -Iinclude testing/testscript.c src/*.c -o testing/test_onitama.exe
+testing\test_onitama.exe
+```
+
+#### Option 2: Step-by-Step Compilation
+
+**Create testing directory (if not exists):**
+```bash
+# Linux/macOS
+mkdir -p testing
+
+# Windows
+mkdir testing
+```
+
+**Compile the test suite:**
+```bash
+# Linux/macOS
+gcc -Wall -Wextra -std=c99 -Iinclude \
+    testing/testscript.c \
+    src/check.c \
+    src/display.c \
+    src/game.c \
+    src/load.c \
+    src/menu.c \
+    src/start.c \
+    -o testing/test_onitama
+
+# Windows
+gcc -Wall -Wextra -std=c99 -Iinclude testing/testscript.c src/check.c src/display.c src/game.c src/load.c src/menu.c src/start.c -o testing/test_onitama.exe
+```
+
+**Run the tests:**
+```bash
+# Linux/macOS
+./testing/test_onitama
+
+# Windows
+testing\test_onitama.exe
+```
+
+#### Option 3: Using Test Build Script
+
+Create a `testbuild.sh` script (Linux/macOS):
+```bash
+#!/bin/bash
+echo "Building Onitama Test Suite..."
+gcc -Wall -Wextra -std=c99 -Iinclude testing/testscript.c src/*.c -o testing/test_onitama
+
+if [ $? -eq 0 ]; then
+    echo "Build successful! Running tests..."
+    ./testing/test_onitama
+else
+    echo "Build failed!"
+fi
+```
+
+Make executable and run:
+```bash
+chmod +x testbuild.sh
+./testbuild.sh
+```
+
+Or create `testbuild.bat` (Windows):
+```batch
+@echo off
+echo Building Onitama Test Suite...
+gcc -Wall -Wextra -std=c99 -Iinclude testing/testscript.c src/*.c -o testing/test_onitama.exe
+
+if %errorlevel% == 0 (
+    echo Build successful! Running tests...
+    testing\test_onitama.exe
+) else (
+    echo Build failed!
+)
+```
+
+### Test Output
+
+The test suite provides colorful output:
+- **Green [PASS]**: Test passed successfully
+- **Red [FAIL]**: Test failed (implementation issue)
+
+Example output:
+```
+=== Onitama Game Test Suite ===
+Running comprehensive tests based on PDF test cases...
+
+=== Testing getPieces ===
+[PASS] Test for Blue player piece character assignment
+[PASS] Test for Red player piece character assignment
+
+=== Testing isOwnPiece ===
+[PASS] Test for Own piece detection - player student
+[PASS] Test for Own piece detection - player sensei
+[PASS] Test for Own piece detection - opponent piece rejection
+...
+
+=== FINAL TEST RESULTS ===
+Total tests executed: 75
+Tests passed: 75
+Tests failed: 0
+Success rate: 100.0%
+
+🎉 ALL TESTS PASSED! Game implementation verified! 🎉
+🎵 Opening your reward... 🎵
+You've been Rick Rolled for your excellent coding! 🕺
+```
+
+### Test Coverage
+
+The test suite validates:
+
+- **Move Validation Functions**:
+  - `getPieces()` - Player piece character assignment
+  - `isOwnPiece()` - Piece ownership detection
+  - `followsPattern()` - Card pattern compliance
+  - `isInRange()` - Board boundary validation
+  - `isValid()` - Complete move validation
+
+- **Game Logic Functions**:
+  - `findMoves()` - Individual piece move detection
+  - `hasAnyValidMoves()` - Player mobility status
+  - `checkForWin()` - Victory condition evaluation
+  - `checkForSensei()` - Master piece detection
+  - `checkForTempleWin()` - Temple capture detection
+
+- **Board Management**:
+  - `movePiece()` - Piece movement execution
+  - `initBoard()` - Board initialization
+  - `isEqualToTemple()` - Temple position identification
+
+- **Card System**:
+  - `switchCards()` - Card exchange mechanism
+  - `cardExists()` - Card existence verification
+  - `dealCards()` - Card distribution
+  - `rareCase()` - Forced card swap handling
+
+- **Pattern Processing**:
+  - `blueMoves()` - Blue player move extraction
+  - `redMoves()` - Red player move calculation
+  - `getMoves()` - Integrated move pattern generation
+
+### Special Test Features
+
+- **Cross-platform compatibility**: Works on Windows, macOS, and Linux
+- **Comprehensive coverage**: Tests all major game functions
+- **Edge case testing**: Boundary conditions and error scenarios
+- **Visual feedback**: Color-coded pass/fail indicators
+- **Rick Roll reward**: Browser opens to celebrate all tests passing! 🎵
+
 ## How to Play
 
 ### Game Setup
@@ -185,9 +365,10 @@ gcc -Wall -std=c99 -Iinclude main.c src/*.c -o onitama.exe
 
 ### Architecture
 - **Modular Design**: Separate files for different game aspects
-- **Header System**: Centralized definitions in head.h
+- **Header System**: Centralized definitions in onitama.h with specific headers
 - **Memory Safe**: Proper memory management and bounds checking
 - **Error Handling**: Comprehensive input validation
+- **Test Coverage**: Complete test suite for quality assurance
 
 ### Key Data Structures
 
@@ -198,12 +379,14 @@ typedef struct databaseTag {
     cardType cardDb[MAX_CARDS];               // All available cards
     int playerCards[2][CARDS_PER_PLAYER];     // Player hand indices
     int neutralCard;                          // Neutral card index
-    String10 p1, p2;                         // Player names
+    String50 p1, p2;                         // Player names
     int bCurrentPlayer;                       // Current turn (BLUE/RED)
     int bGameOver;                            // Game state flag
     int bWinner;                              // Winner (BLUE/RED)
     int bWinCondition;                        // Win type (TEMPLE/SENSEI)
     pointType blueTemple, redTemple;          // Temple positions
+    moveType gameMoves[MAX_GAME_MOVES];       // Move history
+    int gameMovesCtr;                         // Move counter
 } databaseType;
 ```
 
@@ -248,16 +431,14 @@ Tiger
 - **No Global Variables**: Proper parameter passing
 - **Consistent Naming**: Clear, descriptive function and variable names
 - **Documentation**: Comprehensive comments and function headers
+- **Test-Driven**: Comprehensive test suite ensures code quality
 
 ### File Dependencies
-The project uses a specific include order to manage dependencies:
-- `main.c` includes `src/menu.c`
-- `menu.c` includes `game.c`
-- `game.c` includes `check.c`
-- `check.c` includes `display.c`
-- `display.c` includes `start.c`
-- `start.c` includes `load.c`
-- `load.c` includes `../include/head.h`
+The project uses a modular include system:
+- `main.c` includes `include/menu.h`
+- Each module includes its specific header file
+- All headers include `onitama.h` for common definitions
+- Test suite includes all necessary headers for validation
 
 ## Troubleshooting
 
@@ -266,4 +447,15 @@ The project uses a specific include order to manage dependencies:
 1. **File not found errors**: Ensure `data/` directory contains `movecards.txt` and individual card files
 2. **Compilation errors**: Check that all source files are in the correct directories
 3. **Link errors**: Make sure all object files are properly compiled before linking
+4. **Test failures**: Run the test suite to identify specific implementation issues
+5. **Missing headers**: Ensure all header files are in the `include/` directory
+
+## Contributing
+
+When making changes to the codebase:
+1. Ensure all existing tests pass
+2. Add new tests for new functionality
+3. Follow the established coding standards
+4. Update documentation as needed
+5. Test on multiple platforms if possible
 
