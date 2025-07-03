@@ -1,9 +1,10 @@
-# Makefile for Onitama Game
-# Usage: make, make run, make clean, make help
+# Makefile for Onitama Game - Unified Build System
+# Supports: main game, test suite, cross-platform compilation
+# Usage: make, make run, make test, make clean, make help
 
 # ========== CONFIGURATION ==========
 CC = gcc
-CFLAGS = -Wall -std=c99 -I./include
+CFLAGS = -Wall -Wextra -std=c99 -I./include
 LDFLAGS = 
 
 # ========== DIRECTORIES ==========
@@ -11,136 +12,228 @@ SRCDIR = src
 INCDIR = include
 OBJDIR = obj
 DATADIR = data
+TESTDIR = testing
+
+# ========== TARGET DETECTION ==========
+ifeq ($(OS),Windows_NT)
+    DETECTED_OS := Windows
+    EXE_EXT := .exe
+    MKDIR_CMD := mkdir
+    RM_CMD := rmdir /s /q
+    PATH_SEP := \\
+else
+    DETECTED_OS := $(shell uname -s)
+    EXE_EXT := 
+    MKDIR_CMD := mkdir -p
+    RM_CMD := rm -rf
+    PATH_SEP := /
+endif
 
 # ========== FILES ==========
-TARGET = $(OBJDIR)/onitama
-SOURCES = $(wildcard $(SRCDIR)/*.c) main.c
-OBJECTS = $(SOURCES:%.c=$(OBJDIR)/%.o)
+MAIN_TARGET = $(OBJDIR)/onitama$(EXE_EXT)
+TEST_TARGET = $(OBJDIR)/test_onitama$(EXE_EXT)
+
+MAIN_SOURCES = main.c $(wildcard $(SRCDIR)/*.c)
+TEST_SOURCES = $(TESTDIR)/testscript.c $(wildcard $(SRCDIR)/*.c)
+
+MAIN_OBJECTS = $(MAIN_SOURCES:%.c=$(OBJDIR)/%.o)
+TEST_OBJECTS = $(TEST_SOURCES:%.c=$(OBJDIR)/%.o)
+
 HEADERS = $(wildcard $(INCDIR)/*.h)
 
 # ========== COLORS FOR OUTPUT ==========
 GREEN = \033[0;32m
 YELLOW = \033[1;33m
 RED = \033[0;31m
-NC = \033[0m # No Color
+BLUE = \033[0;34m
+PURPLE = \033[0;35m
+CYAN = \033[0;36m
+NC = \033[0m
 
 # ========== DEFAULT TARGET ==========
-all: $(TARGET)
-	@echo "$(GREEN)Build complete: $(TARGET)$(NC)"
+all: $(MAIN_TARGET)
+	@echo "$(GREEN)✓ Build complete: $(MAIN_TARGET)$(NC)"
+	@echo "$(CYAN)  Run with: make run$(NC)"
+	@echo "$(CYAN)  Test with: make test$(NC)"
 
-# ========== BUILD EXECUTABLE ==========
-$(TARGET): $(OBJDIR) $(OBJECTS)
-	@echo "$(YELLOW)Linking $(TARGET)...$(NC)"
-	$(CC) $(OBJECTS) $(LDFLAGS) -o $(TARGET)
+# ========== BUILD MAIN GAME ==========
+$(MAIN_TARGET): $(OBJDIR) $(MAIN_OBJECTS)
+	@echo "$(YELLOW)🔗 Linking main game...$(NC)"
+	$(CC) $(filter-out $(OBJDIR)/$(TESTDIR)/%.o,$(MAIN_OBJECTS)) $(LDFLAGS) -o $(MAIN_TARGET)
 
-# ========== CREATE OBJECT DIRECTORY ==========
+# ========== BUILD TEST SUITE ==========
+$(TEST_TARGET): $(OBJDIR) $(TEST_OBJECTS)
+	@echo "$(YELLOW)🔗 Linking test suite...$(NC)"
+	$(CC) $(filter-out $(OBJDIR)/main.o,$(TEST_OBJECTS)) $(LDFLAGS) -o $(TEST_TARGET)
+
+# ========== CREATE DIRECTORIES ==========
 $(OBJDIR):
-	@echo "$(YELLOW)Creating obj directory...$(NC)"
-	mkdir -p $(OBJDIR)
-	mkdir -p $(OBJDIR)/$(SRCDIR)
+	@echo "$(YELLOW)📁 Creating build directories...$(NC)"
+ifeq ($(DETECTED_OS),Windows)
+	@if not exist "$(OBJDIR)" $(MKDIR_CMD) "$(OBJDIR)" 2>nul
+	@if not exist "$(OBJDIR)$(PATH_SEP)$(SRCDIR)" $(MKDIR_CMD) "$(OBJDIR)$(PATH_SEP)$(SRCDIR)" 2>nul
+	@if not exist "$(OBJDIR)$(PATH_SEP)$(TESTDIR)" $(MKDIR_CMD) "$(OBJDIR)$(PATH_SEP)$(TESTDIR)" 2>nul
+else
+	@$(MKDIR_CMD) $(OBJDIR)
+	@$(MKDIR_CMD) $(OBJDIR)/$(SRCDIR)
+	@$(MKDIR_CMD) $(OBJDIR)/$(TESTDIR)
+endif
 
 # ========== COMPILE SOURCE FILES ==========
 $(OBJDIR)/%.o: %.c $(HEADERS)
-	@echo "$(YELLOW)Compiling $<...$(NC)"
+	@echo "$(YELLOW)⚙️  Compiling $<...$(NC)"
+	@$(MKDIR_CMD) $(dir $@) 2>/dev/null || true
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# ========== RUN THE GAME ==========
-run: $(TARGET)
-	@echo "$(GREEN)Starting Onitama...$(NC)"
-	@echo "$(YELLOW)===============================$(NC)"
-	$(TARGET)
+# ========== RUN MAIN GAME ==========
+run: $(MAIN_TARGET)
+	@echo "$(GREEN)🎮 Starting Onitama Game...$(NC)"
+	@echo "$(PURPLE)===============================$(NC)"
+	@$(MAIN_TARGET)
+
+# ========== RUN TEST SUITE ==========
+test: $(TEST_TARGET)
+	@echo "$(GREEN)🧪 Running Test Suite...$(NC)"
+	@echo "$(PURPLE)===============================$(NC)"
+	@$(TEST_TARGET)
+
+# ========== BUILD AND RUN TESTS ==========
+test-run: test
+	@echo "$(CYAN)Tests completed!$(NC)"
+
+# ========== QUICK TEST (ONE COMMAND) ==========
+quick-test:
+	@echo "$(YELLOW)🚀 Quick test compilation and run...$(NC)"
+	$(CC) $(CFLAGS) $(TESTDIR)/testscript.c $(wildcard $(SRCDIR)/*.c) -o $(TESTDIR)/quick_test$(EXE_EXT)
+	@$(TESTDIR)/quick_test$(EXE_EXT)
+	@$(RM_CMD) $(TESTDIR)/quick_test$(EXE_EXT) 2>/dev/null || true
 
 # ========== CLEAN BUILD ARTIFACTS ==========
 clean:
-	@echo "$(RED)Cleaning build artifacts...$(NC)"
-	rm -rf $(OBJDIR)
-	@echo "$(GREEN)Clean complete$(NC)"
+	@echo "$(RED)🧹 Cleaning build artifacts...$(NC)"
+ifeq ($(DETECTED_OS),Windows)
+	@if exist "$(OBJDIR)" $(RM_CMD) "$(OBJDIR)" 2>nul
+	@if exist "$(TESTDIR)$(PATH_SEP)quick_test$(EXE_EXT)" del "$(TESTDIR)$(PATH_SEP)quick_test$(EXE_EXT)" 2>nul
+else
+	@$(RM_CMD) $(OBJDIR) 2>/dev/null || true
+	@$(RM_CMD) $(TESTDIR)/quick_test 2>/dev/null || true
+endif
+	@echo "$(GREEN)✓ Clean complete$(NC)"
+
+# ========== BUILD BOTH TARGETS ==========
+both: $(MAIN_TARGET) $(TEST_TARGET)
+	@echo "$(GREEN)✓ Both main game and test suite built successfully!$(NC)"
 
 # ========== FORCE REBUILD ==========
 rebuild: clean all
 
 # ========== DEBUG BUILD ==========
-debug: CFLAGS += -g -DDEBUG
-debug: $(TARGET)
-	@echo "$(GREEN)Debug build complete$(NC)"
+debug: CFLAGS += -g -DDEBUG -O0
+debug: clean $(MAIN_TARGET)
+	@echo "$(GREEN)🐛 Debug build complete$(NC)"
 
 # ========== RELEASE BUILD ==========
-release: CFLAGS += -O2
-release: clean $(TARGET)
-	@echo "$(GREEN)Release build complete$(NC)"
+release: CFLAGS += -O2 -DNDEBUG
+release: clean $(MAIN_TARGET)
+	@echo "$(GREEN)🚀 Release build complete$(NC)"
 
-# ========== INSTALL (copy to system directory) ==========
-install: $(TARGET)
-	@echo "$(YELLOW)Installing onitama...$(NC)"
-	sudo cp $(TARGET) /usr/local/bin/onitama
-	@echo "$(GREEN)Installed to /usr/local/bin/$(NC)"
+# ========== PLATFORM INFO ==========
+platform-info:
+	@echo "$(BLUE)🖥️  Platform Information:$(NC)"
+	@echo "  Detected OS: $(DETECTED_OS)"
+	@echo "  Executable Extension: $(EXE_EXT)"
+	@echo "  Compiler: $(CC)"
+	@echo "  Flags: $(CFLAGS)"
 
-# ========== UNINSTALL ==========
-uninstall:
-	@echo "$(RED)Uninstalling onitama...$(NC)"
-	sudo rm -f /usr/local/bin/onitama
-	@echo "$(GREEN)Uninstalled$(NC)"
+# ========== PROJECT INFO ==========
+info: platform-info
+	@echo "$(BLUE)📋 Project Information:$(NC)"
+	@echo "  Main Target: $(MAIN_TARGET)"
+	@echo "  Test Target: $(TEST_TARGET)"
+	@echo "  Main Sources: $(words $(MAIN_SOURCES)) files"
+	@echo "  Headers: $(words $(HEADERS)) files"
+	@echo "  Build Directory: $(OBJDIR)/"
 
-# ========== SHOW PROJECT INFO ==========
-info:
-	@echo "$(YELLOW)Project Information:$(NC)"
-	@echo "  Target:     $(TARGET)"
-	@echo "  Sources:    $(words $(SOURCES)) files"
-	@echo "  Headers:    $(words $(HEADERS)) files" 
-	@echo "  Compiler:   $(CC)"
-	@echo "  Flags:      $(CFLAGS)"
-	@echo "  Build dir:  $(OBJDIR)/"
-
-# ========== CHECK FOR REQUIRED FILES ==========
+# ========== CHECK REQUIREMENTS ==========
 check:
-	@echo "$(YELLOW)Checking project files...$(NC)"
-	@test -d $(SRCDIR) || (echo "$(RED)Missing $(SRCDIR)/ directory$(NC)" && exit 1)
-	@test -d $(INCDIR) || (echo "$(RED)Missing $(INCDIR)/ directory$(NC)" && exit 1)
-	@test -d $(DATADIR) || (echo "$(RED)Missing $(DATADIR)/ directory$(NC)" && exit 1)
-	@test -f main.c || (echo "$(RED)Missing main.c$(NC)" && exit 1)
-	@test -f $(DATADIR)/movecards.txt || (echo "$(RED)Missing $(DATADIR)/movecards.txt$(NC)" && exit 1)
-	@echo "$(GREEN)All required files present$(NC)"
+	@echo "$(YELLOW)🔍 Checking project files...$(NC)"
+	@test -d $(SRCDIR) || (echo "$(RED)❌ Missing $(SRCDIR)/ directory$(NC)" && exit 1)
+	@test -d $(INCDIR) || (echo "$(RED)❌ Missing $(INCDIR)/ directory$(NC)" && exit 1)
+	@test -d $(DATADIR) || (echo "$(RED)❌ Missing $(DATADIR)/ directory$(NC)" && exit 1)
+	@test -f main.c || (echo "$(RED)❌ Missing main.c$(NC)" && exit 1)
+	@test -f $(DATADIR)/movecards.txt || (echo "$(RED)❌ Missing $(DATADIR)/movecards.txt$(NC)" && exit 1)
+	@if [ -f $(TESTDIR)/testscript.c ]; then \
+		echo "$(GREEN)✓ Test script found$(NC)"; \
+	else \
+		echo "$(YELLOW)⚠️  Test script not found at $(TESTDIR)/testscript.c$(NC)"; \
+	fi
+	@echo "$(GREEN)✓ All core files present$(NC)"
 
 # ========== COUNT LINES OF CODE ==========
 count:
-	@echo "$(YELLOW)Lines of code:$(NC)"
-	@wc -l $(SOURCES) $(HEADERS) | tail -1
+	@echo "$(BLUE)📊 Lines of code:$(NC)"
+	@wc -l $(MAIN_SOURCES) $(HEADERS) | tail -1 || echo "wc command not available"
+
+# ========== SETUP PROJECT ==========
+setup:
+	@echo "$(YELLOW)🔧 Setting up project directories...$(NC)"
+	@$(MKDIR_CMD) $(SRCDIR) 2>/dev/null || true
+	@$(MKDIR_CMD) $(INCDIR) 2>/dev/null || true
+	@$(MKDIR_CMD) $(DATADIR) 2>/dev/null || true
+	@$(MKDIR_CMD) $(TESTDIR) 2>/dev/null || true
+	@$(MKDIR_CMD) $(OBJDIR) 2>/dev/null || true
+	@echo "$(GREEN)✓ Project setup complete$(NC)"
 
 # ========== HELP ==========
 help:
-	@echo "$(YELLOW)Onitama Makefile Help$(NC)"
+	@echo "$(BLUE)🎯 Onitama Unified Build System$(NC)"
 	@echo ""
-	@echo "$(GREEN)Main Targets:$(NC)"
-	@echo "  make         - Build the project (default)"
-	@echo "  make run     - Build and run the game"
-	@echo "  make clean   - Remove all build artifacts"
+	@echo "$(GREEN)🎮 Main Targets:$(NC)"
+	@echo "  make           - Build the main game (default)"
+	@echo "  make run       - Build and run the game"
+	@echo "  make clean     - Remove all build artifacts"
 	@echo ""
-	@echo "$(GREEN)Build Options:$(NC)"
-	@echo "  make debug   - Build with debug symbols"
-	@echo "  make release - Build optimized release version"
-	@echo "  make rebuild - Clean and build"
+	@echo "$(GREEN)🧪 Testing:$(NC)"
+	@echo "  make test      - Build and run test suite"
+	@echo "  make quick-test - Compile and run tests in one step"
+	@echo "  make both      - Build both game and tests"
 	@echo ""
-	@echo "$(GREEN)Utility Targets:$(NC)"
-	@echo "  make check   - Verify all required files exist"
-	@echo "  make info    - Show project information"
-	@echo "  make count   - Count lines of code"
-	@echo "  make help    - Show this help message"
+	@echo "$(GREEN)🔧 Build Options:$(NC)"
+	@echo "  make debug     - Build with debug symbols (-g -DDEBUG)"
+	@echo "  make release   - Build optimized release (-O2)"
+	@echo "  make rebuild   - Clean and build from scratch"
 	@echo ""
-	@echo "$(GREEN)Installation:$(NC)"
-	@echo "  make install   - Install to system (requires sudo)"
-	@echo "  make uninstall - Remove from system (requires sudo)"
+	@echo "$(GREEN)🛠️  Utilities:$(NC)"
+	@echo "  make check     - Verify all required files exist"
+	@echo "  make info      - Show project and platform info"
+	@echo "  make count     - Count lines of code"
+	@echo "  make setup     - Create project directory structure"
+	@echo "  make help      - Show this help message"
+	@echo ""
+	@echo "$(CYAN)💡 Quick Start:$(NC)"
+	@echo "  1. make check  - Verify setup"
+	@echo "  2. make run    - Play the game"
+	@echo "  3. make test   - Run all tests"
+	@echo ""
+	@echo "$(PURPLE)🌟 Cross-platform support: Windows, Linux, macOS$(NC)"
 
-# ========== TEST BUILD ==========
-test: | $(OBJDIR) $(OBJDIR)/testmain
-	@echo "$(GREEN)Running test executable...$(NC)"
-	./$(OBJDIR)/testmain
+# ========== INSTALL/UNINSTALL (Unix only) ==========
+ifneq ($(DETECTED_OS),Windows)
+install: $(MAIN_TARGET)
+	@echo "$(YELLOW)📦 Installing onitama...$(NC)"
+	sudo cp $(MAIN_TARGET) /usr/local/bin/onitama
+	@echo "$(GREEN)✓ Installed to /usr/local/bin/$(NC)"
 
-$(OBJDIR)/testmain: testing/testmain.c $(wildcard $(SRCDIR)/*.c) $(HEADERS)
-	@echo "$(YELLOW)Building test executable...$(NC)"
-	@mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) testing/testmain.c $(SRCDIR)/*.c -o $(OBJDIR)/testmain
-# ========== PHONY TARGETS ==========
-.PHONY: all run clean rebuild debug release install uninstall info check count help
+uninstall:
+	@echo "$(RED)🗑️  Uninstalling onitama...$(NC)"
+	sudo rm -f /usr/local/bin/onitama
+	@echo "$(GREEN)✓ Uninstalled$(NC)"
+endif
 
 # ========== DEPENDENCY TRACKING ==========
--include $(OBJECTS:.o=.d)
+-include $(MAIN_OBJECTS:.o=.d)
+-include $(TEST_OBJECTS:.o=.d)
+
+# ========== PHONY TARGETS ==========
+.PHONY: all run test test-run quick-test clean both rebuild debug release \
+        platform-info info check count setup help install uninstall
