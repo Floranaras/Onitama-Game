@@ -3,7 +3,7 @@
 /*
 	This function initializes the game database with default values, including the board setup, player names, and card database.
 	Precondition: The databaseType structure is defined and the card database is loaded.
-	
+
 	@param db a pointer to the databaseType structure to initialize
 
 	@return this function does not return a value, it sets up the initial game state
@@ -79,6 +79,17 @@ void getInputCard (databaseType *db, int *cardDecIdx, int *cardIdx)
 	*cardIdx = db->playerCards[db->bCurrentPlayer][*cardDecIdx];
 }
 
+/*
+	This function prompts the user for the source and destination coordinates of a piece to move.
+	Precondition: The databaseType structure is initialized and contains the game state.
+
+	@param db a pointer to the databaseType structure containing the game data
+	@param src a pointer to a pointType structure where the source coordinates will be stored
+	@param dest a pointer to a pointType structure where the destination coordinates will be stored
+	@param cardIdx the index of the card being used for the move
+
+	@return this function does not return a value, it updates src and dest based on user input
+*/
 void getInputMove (databaseType *db, pointType *src, pointType *dest, int cardIdx)
 {
 	int bValid = 0;
@@ -120,6 +131,15 @@ void getInputMove (databaseType *db, pointType *src, pointType *dest, int cardId
     } while (!bValid);
 }
 
+/*
+	This function checks if the source point is equal to either temple's coordinates.
+	Precondition: The databaseType structure is initialized and contains the temple coordinates.
+
+	@param db a pointer to the databaseType structure containing the game data
+	@param dest a pointType structure representing the destination coordinates
+
+	@return 1 if the destination is equal to either temple, otherwise 0
+*/
 int isEqualToTemple (databaseType *db, pointType dest)
 {	
 	return (dest.row == db->redTemple.row && dest.col == db->redTemple.col) ||
@@ -139,7 +159,6 @@ void movePiece (databaseType *db, pointType src, pointType dest)
 	temp = db->board[src.row][src.col];
 	db->board[src.row][src.col] = empty;
 	db->board[dest.row][dest.col] = temp;
-
 }
 
 void checkForTempleWin (databaseType *db, int *redTempleCapture, int *blueTempleCapture)

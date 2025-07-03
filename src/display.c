@@ -285,7 +285,7 @@ void displayBoard (databaseType *db)
    This function displays the winner of the game based on the game state stored in the database.
    Precondition: The databaseType structure is initialized and contains the game outcome information.
 
-   @param db a pointer to the databaseType structure containing the game data
+   @param db a pointer to the databaseType structure containing the game's data
 
    @return this function does not return a value, it prints the winner and win condition to the screen
 */
