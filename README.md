@@ -66,97 +66,95 @@ Onitama-Game/
 
 ## Building the Game
 
-### Option 1: Using Make (Linux/macOS/WSL)
+We provide a unified, cross-platform build system that works on Windows, Linux, and macOS with the same simple commands.
 
+### Universal Method (All Platforms)
+
+**Prerequisites:**
+- GCC compiler with C99 support
+- Make utility (see [Getting Make on Windows](#getting-make-on-windows) if needed)
+
+**Basic Commands:**
 ```bash
-# Build the project
-make
-
-# Build and run immediately
+# Build and run the game
 make run
+
+# Run comprehensive tests  
+make test
+
+# Quick test (no build artifacts)
+make quick-test
+
+# See all available commands
+make help
 
 # Clean build artifacts
 make clean
-
-# Build with debug symbols
-make debug
-
-# Build optimized release version
-make release
-
-# Show all available commands
-make help
 ```
 
-### Option 2: Using build.bat (Windows)
+### Getting Make on Windows
 
-For Windows users, we provide a convenient batch script:
+#### Option 1: Git Bash (Recommended if you have Git)
+```bash
+# Git for Windows includes make
+# Right-click in project folder → "Git Bash Here"
+make run
+```
 
+#### Option 2: Use build.cmd (No installation needed)
+If you don't have make, use our Windows build script:
 ```cmd
-# Simply double-click build.bat or run from command prompt:
-build.bat
+# Replace make commands with build.cmd
+build.cmd run       # Instead of make run
+build.cmd test      # Instead of make test  
+build.cmd help      # Instead of make help
+build.cmd clean     # Instead of make clean
 ```
 
-This will:
-- Create necessary directories (`obj` and `obj\src`)
-- Compile all source files with proper flags
-- Link everything into `onitama.exe`
-- Display completion message
-
-Then run the game:
+#### Option 3: Install Make
 ```cmd
-onitama.exe
+# Using Chocolatey
+choco install make
+
+# Using WSL (Windows 10/11)
+wsl --install
+
+# Using winget
+winget install GnuWin32.Make
 ```
 
-### Option 3: Manual Compilation
+### Available Build Commands
 
-**Step 1: Create output directories**
+| **Command** | **Description** |
+|-------------|-----------------|
+| `make` | Build the main game |
+| `make run` | Build and run the game |
+| `make test` | Build and run comprehensive test suite |
+| `make quick-test` | Fast test compilation and run |
+| `make both` | Build both game and tests |
+| `make clean` | Remove all build artifacts |
+| `make debug` | Build with debug symbols (-g -DDEBUG) |
+| `make release` | Build optimized release (-O2) |
+| `make check` | Verify all required files exist |
+| `make info` | Show project and platform information |
+| `make help` | Show all available commands |
+
+### Build Output Features
+
+Our build system provides:
+-  **Colorful output** with emojis for better readability
+-  **Smart platform detection** (Windows/Linux/macOS)
+-  **Automatic directory creation**
+-  **Fast compilation** with dependency tracking
+-  **Integrated testing** support
+
+Example output:
 ```bash
-# Linux/macOS
-mkdir -p obj/src
-
-# Windows
-mkdir obj
-mkdir obj\src
-```
-
-**Step 2: Compile source files**
-```bash
-gcc -Wall -std=c99 -Iinclude -c main.c -o obj/main.o
-gcc -Wall -std=c99 -Iinclude -c src/load.c -o obj/src/load.o
-gcc -Wall -std=c99 -Iinclude -c src/start.c -o obj/src/start.o
-gcc -Wall -std=c99 -Iinclude -c src/display.c -o obj/src/display.o
-gcc -Wall -std=c99 -Iinclude -c src/check.c -o obj/src/check.o
-gcc -Wall -std=c99 -Iinclude -c src/game.c -o obj/src/game.o
-gcc -Wall -std=c99 -Iinclude -c src/menu.c -o obj/src/menu.o
-```
-
-**Step 3: Link all object files**
-```bash
-# Linux/macOS
-gcc obj/main.o obj/src/*.o -o onitama
-
-# Windows
-gcc obj/main.o obj/src/*.o -o onitama.exe
-```
-
-**Step 4: Run the game**
-```bash
-# Linux/macOS
-./onitama
-
-# Windows
-onitama.exe
-```
-
-### Option 4: Simple One-Line Compilation
-
-```bash
-# Linux/macOS
-gcc -Wall -std=c99 -Iinclude main.c src/*.c -o onitama
-
-# Windows
-gcc -Wall -std=c99 -Iinclude main.c src/*.c -o onitama.exe
+ Starting Onitama Game...
+ Running Test Suite...
+Build complete
+ Missing file
+  Warning message
 ```
 
 ## Testing the Implementation
@@ -165,9 +163,21 @@ We provide a comprehensive test suite to verify the correctness of the game impl
 
 ### Running the Test Suite
 
-**Note**: Place the test script as `testing/testscript.c` before running these commands.
+#### Quick Test Commands
 
-#### Option 1: Quick Test Compilation and Run
+```bash
+# Using make (recommended)
+make test           # Build and run full test suite
+make quick-test     # Fast test without build artifacts
+
+# Using Windows build script (if no make)
+build.cmd test      # Build and run full test suite  
+build.cmd quick-test # Fast test without build artifacts
+```
+
+#### Manual Test Compilation (if needed)
+
+**Note**: Place the test script as `testing/testscript.c` before running these commands.
 
 ```bash
 # Linux/macOS/WSL
@@ -179,84 +189,11 @@ gcc -Wall -Wextra -std=c99 -Iinclude testing/testscript.c src/*.c -o testing/tes
 testing\test_onitama.exe
 ```
 
-#### Option 2: Step-by-Step Compilation
-
-**Create testing directory (if not exists):**
-```bash
-# Linux/macOS
-mkdir -p testing
-
-# Windows
-mkdir testing
-```
-
-**Compile the test suite:**
-```bash
-# Linux/macOS
-gcc -Wall -Wextra -std=c99 -Iinclude \
-    testing/testscript.c \
-    src/check.c \
-    src/display.c \
-    src/game.c \
-    src/load.c \
-    src/menu.c \
-    src/start.c \
-    -o testing/test_onitama
-
-# Windows
-gcc -Wall -Wextra -std=c99 -Iinclude testing/testscript.c src/check.c src/display.c src/game.c src/load.c src/menu.c src/start.c -o testing/test_onitama.exe
-```
-
-**Run the tests:**
-```bash
-# Linux/macOS
-./testing/test_onitama
-
-# Windows
-testing\test_onitama.exe
-```
-
-#### Option 3: Using Test Build Script
-
-Create a `testbuild.sh` script (Linux/macOS):
-```bash
-#!/bin/bash
-echo "Building Onitama Test Suite..."
-gcc -Wall -Wextra -std=c99 -Iinclude testing/testscript.c src/*.c -o testing/test_onitama
-
-if [ $? -eq 0 ]; then
-    echo "Build successful! Running tests..."
-    ./testing/test_onitama
-else
-    echo "Build failed!"
-fi
-```
-
-Make executable and run:
-```bash
-chmod +x testbuild.sh
-./testbuild.sh
-```
-
-Or create `testbuild.bat` (Windows):
-```batch
-@echo off
-echo Building Onitama Test Suite...
-gcc -Wall -Wextra -std=c99 -Iinclude testing/testscript.c src/*.c -o testing/test_onitama.exe
-
-if %errorlevel% == 0 (
-    echo Build successful! Running tests...
-    testing\test_onitama.exe
-) else (
-    echo Build failed!
-)
-```
-
 ### Test Output
 
 The test suite provides colorful output:
-- **Green [PASS]**: Test passed successfully
-- **Red [FAIL]**: Test failed (implementation issue)
+-  **Green [PASS]**: Test passed successfully
+-  **Red [FAIL]**: Test failed (implementation issue)
 
 Example output:
 ```
@@ -280,8 +217,6 @@ Tests failed: 0
 Success rate: 100.0%
 
 🎉 ALL TESTS PASSED! Game implementation verified! 🎉
-🎵 Opening your reward... 🎵
-You've been Rick Rolled for your excellent coding! 🕺
 ```
 
 ### Test Coverage
@@ -450,6 +385,59 @@ The project uses a modular include system:
 4. **Test failures**: Run the test suite to identify specific implementation issues
 5. **Missing headers**: Ensure all header files are in the `include/` directory
 
+### Platform-Specific Issues
+
+#### Windows
+- **Make not found**: See [Getting Make on Windows](#getting-make-on-windows) section
+- **Permission errors**: Run Command Prompt as Administrator if needed
+- **Path issues**: Use `build.cmd` if make commands don't work
+
+#### Linux/macOS
+- **GCC not installed**: Install build tools (`sudo apt install build-essential` on Ubuntu)
+- **Permission denied**: Check file permissions (`chmod +x` for executables)
+
+### Debugging
+
+#### Verify Setup
+```bash
+make check          # Verify all files present
+make info           # Show build configuration
+make platform-info  # Show platform details
+```
+
+#### Clean Rebuild
+```bash
+make clean          # Remove all build artifacts
+make                # Clean build
+```
+
+#### Debug Build
+```bash
+make debug          # Build with debug symbols
+gdb obj/onitama     # Debug with GDB (Linux/macOS)
+```
+
+#### Test Debugging
+```bash
+make test           # Run full test suite
+make quick-test     # Fast test run
+```
+
+If tests fail, the test suite provides detailed error messages showing exactly which functions need attention.
+
+### Getting Help
+
+- **Build commands**: `make help` or `build.cmd help`
+- **Project info**: `make info`
+- **File verification**: `make check`
+- **Test the build system**: `make quick-test`
+
+### Performance Tips
+
+- Use `make quick-test` for faster testing during development
+- Use `make release` for optimized builds
+- Use `make clean` if you encounter strange linking issues
+
 ## Contributing
 
 When making changes to the codebase:
@@ -458,4 +446,5 @@ When making changes to the codebase:
 3. Follow the established coding standards
 4. Update documentation as needed
 5. Test on multiple platforms if possible
+
 
