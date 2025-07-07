@@ -1,5 +1,4 @@
-#include "../include/display.h"
-
+#include "start.c"
 /*
    This function displays the welcome message and basic instructions for the Onitama game.
 

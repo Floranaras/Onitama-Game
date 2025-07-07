@@ -1,5 +1,4 @@
-#include "../include/load.h"
-
+#include "onitama.h"
 /*
 	This function loads the master list of cards from a TXT file into the database.
 	Precondition: The databaseType structure is defined and the master list file exists.

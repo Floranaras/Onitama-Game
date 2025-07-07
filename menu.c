@@ -1,5 +1,4 @@
-#include "../include/menu.h"
-
+#include "game.c"
 /*
     This function displays the main menu of the Onitama game and handles user input for starting the game or exiting.
     Precondition: The databaseType structure is initialized and contains the game data.

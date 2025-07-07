@@ -1,5 +1,4 @@
-#include "../include/start.h"
-
+#include "load.c"
 /*
 	This function initializes the game board with the default Onitama setup.
 	Precondition: The databaseType structure is defined and the board is a 5x5 grid.

@@ -1,5 +1,4 @@
-#include "../include/check.h"
-
+#include "display.c"
 /*
    This function modifies the characters used to represent the student's and sensei's pieces for the given player.
    Precondition: currentPlayer is either BLUE or RED.
