@@ -24,7 +24,6 @@ Onitama is a strategic board game where each player controls five pieces (one ma
 ```
 Onitama-Game/
 ├── check.c              # Move validation and game logic
-├── compile_flags.txt    # Compiler flags for LSP/IDE support
 ├── data/                # Move card data files
 │   ├── movecards.txt    # Master list of available cards
 │   ├── Boar.txt         # Individual card movement patterns
