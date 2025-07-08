@@ -142,13 +142,18 @@ void viewBlueBoard (databaseType *db)
 	int j, k;
 
 	
-	printf("\n===GAME BOARD===\n(%s's Perspective - BLUE)\n", db->p1);
+	printf("\n===GAME BOARD===\n\033[1;34m(%s's Perspective - BLUE)\033[0m\n", db->p1);
 	viewColumnGuide(BLUE);
 	for (j = 0; j < SIDE; j++)
 	{
 		for (k = 0; k < SIDE; k++)
 		{
-			printf("%c ", db->board[j][k]);
+			if (db->board[j][k] == 'R' || db->board[j][k] == 'r')
+				printf("\033[1;31m%c\033[0m ", db->board[j][k]); 
+			else if (db->board[j][k] == 'B' || db->board[j][k] == 'b')
+				printf("\033[1;34m%c\033[0m ", db->board[j][k]); 
+			else
+				printf("%c ", db->board[j][k]);
 		}
 		printf("%d", j);
 		printf("\n");
@@ -167,13 +172,18 @@ void viewRedBoard (databaseType *db)
 {
 	int j, k;
 	
-	printf("\n===GAME BOARD===\n(%s's Perspective - RED)\n", db->p2);
+	printf("\n===GAME BOARD===\n\033[1;31m(%s's Perspective - RED)\033[0m\n", db->p2);
 	viewColumnGuide(RED);
 	for (j = SIDE - 1; j >= 0; j--)
 	{
 		for (k = SIDE - 1; k >= 0; k--)
 		{
-			printf("%c ", db->board[j][k]);
+			if (db->board[j][k] == 'R' || db->board[j][k] == 'r')
+				printf("\033[1;31m%c\033[0m ", db->board[j][k]); 
+			else if (db->board[j][k] == 'B' || db->board[j][k] == 'b')
+				printf("\033[1;34m%c\033[0m ", db->board[j][k]); 
+			else
+				printf("%c ", db->board[j][k]);
 		}
 
 		printf("%d", j);
