@@ -93,10 +93,11 @@ void getInputMove (databaseType *db, pointType *src, pointType *dest, int cardId
 {
 	int bValid = 0;
     int srcRow, srcCol, destRow, destCol;
+	int bInputOK = 1;
 
     do 
     {
-        int bInputOK = 1;
+        bInputOK = 1;
 
         printf("Format: row col\n");
 
