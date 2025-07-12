@@ -109,7 +109,7 @@ void viewDealtCard(databaseType *db);
 void viewColumnGuide(int key);
 void viewBlueBoard(databaseType *db);
 void viewRedBoard(databaseType *db);
-void displayCard(cardType card);
+void displayCard(cardType card[], int count);
 void displayYourCard(databaseType *db);
 void displayOpponentsCard(databaseType *db);
 void displayNeutral(databaseType *db);

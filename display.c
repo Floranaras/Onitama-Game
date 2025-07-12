@@ -114,8 +114,6 @@ void viewColumnGuide (int key)
 		{
 			printf("%d ", j);
 		}
-		
-		printf("\n");
 	}
 
 	else if (key == RED)
@@ -124,8 +122,6 @@ void viewColumnGuide (int key)
 		{
 			printf("%d ", j);
 		}
-		
-		printf("\n");
 	}
 }
 
@@ -139,25 +135,61 @@ void viewColumnGuide (int key)
 */
 void viewBlueBoard (databaseType *db)
 {
-	int j, k;
+	// int j, k;
 
-	
-	printf("\n===GAME BOARD===\n\033[1;34m(%s's Perspective - BLUE)\033[0m\n", db->p1);
+	// printf("\n===GAME BOARD===\n\033[1;34m(%s's Perspective - BLUE)\033[0m\n", db->p1);
+	// displayOpponentsCard(db);
+	// viewColumnGuide(BLUE);
+	// for (j = 0; j < SIDE; j++)
+	// {
+	// 	for (k = 0; k < SIDE; k++)
+	// 	{
+	// 		if (db->board[j][k] == 'R' || db->board[j][k] == 'r')
+	// 			printf("\033[1;31m%c\033[0m ", db->board[j][k]); 
+	// 		else if (db->board[j][k] == 'B' || db->board[j][k] == 'b')
+	// 			printf("\033[1;34m%c\033[0m ", db->board[j][k]); 
+	// 		else
+	// 			printf("%c ", db->board[j][k]);
+	// 	}
+	// 	printf("%d", j);
+	// 	printf("\n");
+	// }
+	// displayYourCard(db);
+
+	int row, col;
+	char piece;
+
+	printf("\n=== GAME BOARD ===\n\033[1;34m(%s's Perspective - BLUE)\033[0m\n", db->p1);
+
+	displayOpponentsCard(db);
+	printf("\n  ");
 	viewColumnGuide(BLUE);
-	for (j = 0; j < SIDE; j++)
+	printf("\tNeutral: %s\n", db->cardDb[db->neutralCard].name);
+
+	for (row = 0; row < SIDE; row++)
 	{
-		for (k = 0; k < SIDE; k++)
+		printf("%d ", row); 
+		for (col = 0; col < SIDE; col++)
 		{
-			if (db->board[j][k] == 'R' || db->board[j][k] == 'r')
-				printf("\033[1;31m%c\033[0m ", db->board[j][k]); 
-			else if (db->board[j][k] == 'B' || db->board[j][k] == 'b')
-				printf("\033[1;34m%c\033[0m ", db->board[j][k]); 
+			piece = db->board[row][col];
+			if (piece == 'R' || piece == 'r')
+				printf("\033[1;31m%c\033[0m ", piece); 
+			else if (piece == 'B' || piece == 'b')
+				printf("\033[1;34m%c\033[0m ", piece);
 			else
-				printf("%c ", db->board[j][k]);
+				printf("%c ", piece); 
 		}
-		printf("%d", j);
+		printf(" |  ");
+
+		for (col = 0; col < SIDE; col++)
+		{
+			printf("%c ", db->cardDb[db->neutralCard].card[row][col]);
+		}
 		printf("\n");
 	}
+
+	printf("\n");
+	displayYourCard(db);
 }
 
 /*
@@ -170,25 +202,63 @@ void viewBlueBoard (databaseType *db)
 */
 void viewRedBoard (databaseType *db)
 {
-	int j, k;
+	// int j, k;
 	
-	printf("\n===GAME BOARD===\n\033[1;31m(%s's Perspective - RED)\033[0m\n", db->p2);
+	// printf("\n===GAME BOARD===\n\033[1;31m(%s's Perspective - RED)\033[0m\n", db->p2);
+	// displayOpponentsCard(db);
+	// viewColumnGuide(RED);
+	// printf("\t\t");
+	// for (j = SIDE - 1; j >= 0; j--)
+	// {
+	// 	for (k = SIDE - 1; k >= 0; k--)
+	// 	{
+	// 		if (db->board[j][k] == 'R' || db->board[j][k] == 'r')
+	// 			printf("\033[1;31m%c\033[0m ", db->board[j][k]); 
+	// 		else if (db->board[j][k] == 'B' || db->board[j][k] == 'b')
+	// 			printf("\033[1;34m%c\033[0m ", db->board[j][k]); 
+	// 		else
+	// 			printf("%c ", db->board[j][k]);
+	// 	}
+
+	// 	printf("%d", j);
+	// 	printf("\n");
+	// }
+	// displayYourCard(db);
+
+	int row, col;
+	char piece;
+
+	printf("\n=== GAME BOARD ===\n\033[1;31m(%s's Perspective - RED)\033[0m\n", db->p2);
+
+	displayOpponentsCard(db);
+	printf("\n  ");
 	viewColumnGuide(RED);
-	for (j = SIDE - 1; j >= 0; j--)
+	printf("\tNeutral: %s\n", db->cardDb[db->neutralCard].name);
+
+	for (row = SIDE - 1; row >= 0; row--)
 	{
-		for (k = SIDE - 1; k >= 0; k--)
+		printf("%d ", row); 
+		for (col = SIDE - 1; col >= 0; col--)
 		{
-			if (db->board[j][k] == 'R' || db->board[j][k] == 'r')
-				printf("\033[1;31m%c\033[0m ", db->board[j][k]); 
-			else if (db->board[j][k] == 'B' || db->board[j][k] == 'b')
-				printf("\033[1;34m%c\033[0m ", db->board[j][k]); 
+			piece = db->board[row][col];
+			if (piece == 'R' || piece == 'r')
+				printf("\033[1;31m%c\033[0m ", piece); 
+			else if (piece == 'B' || piece == 'b')
+				printf("\033[1;34m%c\033[0m ", piece); 
 			else
-				printf("%c ", db->board[j][k]);
+				printf("%c ", piece); 
+		}
+		printf(" |  "); 
+		for (col = 0; col < SIDE; col++)
+		{
+			printf("%c ", db->cardDb[db->neutralCard].card[SIDE - 1 - row][col]);
 		}
 
-		printf("%d", j);
 		printf("\n");
 	}
+
+	printf("\n");
+	displayYourCard(db);
 }
 
 /*
@@ -199,24 +269,46 @@ void viewRedBoard (databaseType *db)
 
    @return this function does not return a value, it prints the card details to the screen
 */
-void displayCard (cardType card)
+void displayCard (cardType card[], int count)
 {
-	int j;
-	int k;
+	// int j;
+	// int k;
 	
-	printf("\n%s Card", card.name);
+	// printf("\n%s Card", card.name);
+	// printf("\n{\n");
+
+	// for (j = 0; j < SIDE; j++)
+	// {
+	// 	for (k = 0; k < SIDE; k++)
+	// 	{
+	// 		printf("%c ", card.card[j][k]);
+	// 	}
+	// 	printf("\n");
+	// }
+
+	// printf("\n}\n");
+	
+	int row, col, i;
+
+	for (i = 0; i < count; i++)
+	{
+		printf("%s\t\t", card[i].name);
+	}
 	printf("\n{\n");
 
-	for (j = 0; j < SIDE; j++)
+	for (row = 0; row < SIDE; row++)
 	{
-		for (k = 0; k < SIDE; k++)
+		for (i = 0; i < count; i++)
 		{
-			printf("%c ", card.card[j][k]);
+			for (col = 0; col < SIDE; col++)
+			{
+				printf("%c ", card[i].card[row][col]);
+			}
+			printf("\t");
 		}
 		printf("\n");
 	}
-
-	printf("\n}\n");
+	printf("}\n");
 }
 
 /*
@@ -229,12 +321,19 @@ void displayCard (cardType card)
 */
 void displayYourCard (databaseType *db)
 {
-	int j;
+	// int j;
 
-	for (j = 0; j < 2; j++)
-	{
-		displayCard(db->cardDb[db->playerCards[db->bCurrentPlayer][j]]);
-	}
+	// for (j = 0; j < 2; j++)
+	// {
+	// 	displayCard(db->cardDb[db->playerCards[db->bCurrentPlayer][j]]);
+	// }
+
+	cardType cards[2];
+
+	cards[0] = db->cardDb[db->playerCards[db->bCurrentPlayer][0]];
+	cards[1] = db->cardDb[db->playerCards[db->bCurrentPlayer][1]];
+
+	displayCard(cards, 2);
 }
 
 /*
@@ -247,13 +346,20 @@ void displayYourCard (databaseType *db)
 */
 void displayOpponentsCard (databaseType *db)
 {
-	int j;
-	int opp = !db->bCurrentPlayer;
+	// int j;
+	// int opp = !db->bCurrentPlayer;
 
-	for (j = 0; j < 2; j++)
-	{
-		displayCard(db->cardDb[db->playerCards[opp][j]]);
-	}
+	// for (j = 0; j < 2; j++)
+	// {
+	// 	displayCard(db->cardDb[db->playerCards[opp][j]]);
+	// }
+
+	cardType cards[2];
+
+	cards[0] = db->cardDb[db->playerCards[!db->bCurrentPlayer][0]];
+	cards[1] = db->cardDb[db->playerCards[!db->bCurrentPlayer][1]];
+
+	displayCard(cards, 2);
 }
 
 /*
@@ -266,7 +372,7 @@ void displayOpponentsCard (databaseType *db)
 */
 void displayNeutral (databaseType *db)
 {
-	displayCard(db->cardDb[db->neutralCard]);
+	// displayCard(db->cardDb[db->neutralCard]);
 }
 
 /*
