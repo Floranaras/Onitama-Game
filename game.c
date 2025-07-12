@@ -315,7 +315,8 @@ void makeMove (databaseType *db)
 	else
 	{
 		getInputCard(db, &cardDecIdx, &cardIdx);
-		displayCard(db->cardDb[cardIdx]);
+		temp[0] = db->cardDb[cardIdx];
+		displayCard(temp, 1); // Display the selected card
 		getInputMove(db, &src, &dest, cardIdx);
 		movePiece(db, src, dest);
 		switchCards(db, cardDecIdx);
