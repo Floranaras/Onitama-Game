@@ -67,7 +67,7 @@ void getInputCard (databaseType *db, int *cardDecIdx, int *cardIdx)
 	do 
 	{
 		printf("Select a card: \n");
-		printf("0] %s\n", db->cardDb[db->playerCards[db->bCurrentPlayer][0]].name);
+		printf("0] %s ", db->cardDb[db->playerCards[db->bCurrentPlayer][0]].name);
 		printf("1] %s\n", db->cardDb[db->playerCards[db->bCurrentPlayer][1]].name);
 		printf("Enter card of choice: ");
 		scanf("%d", cardDecIdx);
@@ -89,45 +89,57 @@ void getInputCard (databaseType *db, int *cardDecIdx, int *cardIdx)
 
 	@return this function does not return a value, it updates src and dest based on user input
 */
-void getInputMove (databaseType *db, pointType *src, pointType *dest, int cardIdx)
+void getInputMove(databaseType *db, pointType *src, pointType *dest, int cardIdx)
 {
-	int bValid = 0;
-    int srcRow, srcCol, destRow, destCol;
-	int bInputOK = 1;
+    int bValid = 0;
+    int srcRow, srcCol, moveIdx;
+    int inputOK;
 
     do 
     {
-        bInputOK = 1;
-
+        inputOK = 1;
+        
         printf("Format: row col\n");
-
         printf("Coordinates of Piece to Move: ");
-        if (scanf("%d %d", &srcRow, &srcCol) != 2)
-            bInputOK = 0;
-
-        printf("Destination of Piece: ");
-        if (scanf("%d %d", &destRow, &destCol) != 2)
-            bInputOK = 0;
-
-        if (bInputOK)
+        
+        if (scanf("%d %d", &srcRow, &srcCol) != 2) 
+        {
+            printf("Invalid input format.\n");
+            inputOK = 0;
+        }
+        
+        if (inputOK)
         {
             src->row = srcRow;
             src->col = srcCol;
-            dest->row = destRow;
-            dest->col = destCol;
 
-            if (isValid(db, *src, *dest, cardIdx, 1))
-                bValid = 1;
-            else
-                printf("Invalid move.\n");
+            if (!isValidPiece(db, *src)) 
+            {
+                printf("That's not your piece!\n");
+                inputOK = 0;
+            }
         }
-        else
+        
+        if (inputOK)
         {
-            printf("Invalid input. Please enter numbers in 'row col' format.\n");
+            printf("Select move index (0-%d): ", db->cardDb[cardIdx].movesCtr - 1);
+            
+            if (scanf("%d", &moveIdx) != 1) 
+            {
+                printf("Invalid move index.\n");
+                inputOK = 0;
+            }
         }
-
-        // flush buffer (only needed if scanf fails and extra junk remains)
-        while (getchar() != '\n');  // only if allowed
+        
+        if (inputOK)
+        {
+            if (isValidUserMove(db, *src, moveIdx, cardIdx)) 
+            {
+                *dest = getDestinationFromMoveIdx(db, *src, moveIdx, cardIdx);  // Fixed name
+                bValid = 1;
+            }
+        }
+        
     } while (!bValid);
 }
 
@@ -301,7 +313,7 @@ void makeMove (databaseType *db)
 	else
 	{
 		getInputCard(db, &cardDecIdx, &cardIdx);
-		displayCard(db->cardDb[cardIdx]);
+		displayCard(db, cardIdx);
 		getInputMove(db, &src, &dest, cardIdx);
 		movePiece(db, src, dest);
 		switchCards(db, cardDecIdx);
@@ -372,7 +384,8 @@ void gameLoop (databaseType *db)
 		displayBoard(db);
 		viewDealtCard(db);
 		displayWinCondition();
-		playerMenu(db);
+//		playerMenu(db);
+		makeMove(db);
 		checkForWin(db);
 
 		db->bCurrentPlayer = !db->bCurrentPlayer;
