@@ -261,26 +261,26 @@ void viewRedBoard (databaseType *db)
 	displayYourCard(db);
 }
 
-int findMoveIndex(databaseType *db, int cardIdx, int row, int col)
-{
-    int moveIdx = 0, found = -1;
-	pointType movePos;	
+// int findMoveIndex(databaseType *db, int cardIdx, int row, int col)
+// {
+//     int moveIdx = 0;
     
-    while (moveIdx < db->cardDb[cardIdx].movesCtr) 
-    {
-        movePos.row = 2 + db->cardDb[cardIdx].moves[db->bCurrentPlayer][moveIdx].row;
-        movePos.col = 2 + db->cardDb[cardIdx].moves[db->bCurrentPlayer][moveIdx].col;
+//     while (moveIdx < db->cardDb[cardIdx].movesCtr) 
+//     {
+//         pointType movePos;
+//         movePos.row = 2 + db->cardDb[cardIdx].moves[db->bCurrentPlayer][moveIdx].row;
+//         movePos.col = 2 + db->cardDb[cardIdx].moves[db->bCurrentPlayer][moveIdx].col;
         
-        if (movePos.row == row && movePos.col == col) 
-        {
-            found = moveIdx;
-        }
+//         if (movePos.row == row && movePos.col == col) 
+//         {
+//             return moveIdx;
+//         }
         
-        moveIdx++;
-    }
+//         moveIdx++;
+//     }
     
-    return found; // Should never happen for valid 'x' positions
-}
+//     return -1; // Should never happen for valid 'x' positions
+// }
 
 /*
    This function displays the details of a specific card, including its name and movement pattern.
