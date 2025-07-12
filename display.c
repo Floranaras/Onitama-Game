@@ -260,7 +260,6 @@ void viewRedBoard (databaseType *db)
 	printf("\n");
 	displayYourCard(db);
 }
-
 /*
    This function displays the details of a specific card, including its name and movement pattern.
    Precondition: The cardType structure is initialized and contains the card data.

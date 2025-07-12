@@ -114,7 +114,8 @@ void displayYourCard(databaseType *db);
 void displayOpponentsCard(databaseType *db);
 void displayNeutral(databaseType *db);
 void displayBoard(databaseType *db);
-void viewWinner(databaseType *db);
+int findMoveIndex(databaseType *db, int cardIdx, int row, int col);
+void displayCard(databaseType *db, int cardIdx);  // Updated signatureoid viewWinner(databaseType *db);
 
 /* Check Function Prototypes */
 void getPieces(char* student, char* sensei, int currentPlayer);
@@ -124,7 +125,12 @@ int isInRange(pointType dest);
 int isValid(databaseType *db, pointType src, pointType dest, int cardIdx, int verbose);
 int findMoves(databaseType *db, pointType src);
 int hasAnyValidMoves(databaseType *db);
-
+pointType getDestinationFromMoveIdx(databaseType *db, pointType src, int moveIdx, int cardIdx);
+int isValidPiece(databaseType *db, pointType src);
+int isValidMoveIdx(databaseType *db, int moveIdx, int cardIdx);
+int isValidDest(databaseType *db, pointType dest);
+int isValidForRareCase(databaseType *db, pointType src, int moveIdx, int cardIdx);
+int isValidUserMove(databaseType *db, pointType src, int moveIdx, int cardIdx);
 
 /* Game Function Prototypes */
 void startGame(databaseType *db);
