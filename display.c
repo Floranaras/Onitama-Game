@@ -180,29 +180,6 @@ void viewRedBoard (databaseType *db)
 		printf("\n");
 	}
 }
-
-
-int findMoveIndex(databaseType *db, int cardIdx, int row, int col)
-{
-    int moveIdx = 0;
-    
-    while (moveIdx < db->cardDb[cardIdx].movesCtr) 
-    {
-        pointType movePos;
-        movePos.row = 2 + db->cardDb[cardIdx].moves[db->bCurrentPlayer][moveIdx].row;
-        movePos.col = 2 + db->cardDb[cardIdx].moves[db->bCurrentPlayer][moveIdx].col;
-        
-        if (movePos.row == row && movePos.col == col) 
-        {
-            return moveIdx;
-        }
-        
-        moveIdx++;
-    }
-    
-    return -1; // Should never happen for valid 'x' positions
-}
-
 /*
    This function displays the details of a specific card, including its name and movement pattern.
    Precondition: The cardType structure is initialized and contains the card data.
@@ -213,36 +190,26 @@ int findMoveIndex(databaseType *db, int cardIdx, int row, int col)
 */
 void displayCard(databaseType *db, int cardIdx)
 {
-    int pos = 0;
     cardType card = db->cardDb[cardIdx];
-    
-    printf("\n%s Card", card.name);
-    printf("\n{\n");
-    
-    while (pos < SIDE * SIDE) 
-    {
-        int row = pos / SIDE;
-        int col = pos % SIDE;
-        char output = card.card[row][col];
-        
-        if (output == 'x') 
-        {
-            printf("%d ", findMoveIndex(db, cardIdx, row, col));
-        } 
-        else 
-        {
-            printf("%c ", output);
-        }
-        
-        if (col == SIDE - 1) 
-        {
-            printf("\n");
-        }
-        
-        pos++;
-    }
-    
-    printf("\n}\n");
+    int maxMoves = db->cardDb[cardIdx].movesCtr;
+    int j, k, count = 0;
+    printf("\n%s Card\n", card.name);
+
+	
+	for (j = 0; j < SIDE; j++)
+	{
+		for (k = 0; k < SIDE; k++)
+		{
+            if (card.card[j][k] == 'x')
+			{	
+                printf("%d", count);
+				count++;
+			}
+			else 
+                printf("%c", card.card[j][k]);
+		}
+		printf("\n");
+	}   
 }
 
 /*
