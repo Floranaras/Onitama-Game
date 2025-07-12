@@ -260,6 +260,28 @@ void viewRedBoard (databaseType *db)
 	printf("\n");
 	displayYourCard(db);
 }
+
+int findMoveIndex(databaseType *db, int cardIdx, int row, int col)
+{
+    int moveIdx = 0, found = -1;
+	pointType movePos;	
+    
+    while (moveIdx < db->cardDb[cardIdx].movesCtr) 
+    {
+        movePos.row = 2 + db->cardDb[cardIdx].moves[db->bCurrentPlayer][moveIdx].row;
+        movePos.col = 2 + db->cardDb[cardIdx].moves[db->bCurrentPlayer][moveIdx].col;
+        
+        if (movePos.row == row && movePos.col == col) 
+        {
+            found = moveIdx;
+        }
+        
+        moveIdx++;
+    }
+    
+    return found; // Should never happen for valid 'x' positions
+}
+
 /*
    This function displays the details of a specific card, including its name and movement pattern.
    Precondition: The cardType structure is initialized and contains the card data.
@@ -268,7 +290,7 @@ void viewRedBoard (databaseType *db)
 
    @return this function does not return a value, it prints the card details to the screen
 */
-void displayCard (cardType card[], int count)
+void displayCard (cardType card[])
 {
 	// int j;
 	// int k;
@@ -289,7 +311,7 @@ void displayCard (cardType card[], int count)
 	
 	int row, col, i;
 
-	for (i = 0; i < count; i++)
+	for (i = 0; i < CARDS_PER_PLAYER; i++)
 	{
 		printf("%s\t\t", card[i].name);
 	}
@@ -297,7 +319,7 @@ void displayCard (cardType card[], int count)
 
 	for (row = 0; row < SIDE; row++)
 	{
-		for (i = 0; i < count; i++)
+		for (i = 0; i < CARDS_PER_PLAYER; i++)
 		{
 			for (col = 0; col < SIDE; col++)
 			{
@@ -307,6 +329,38 @@ void displayCard (cardType card[], int count)
 		}
 		printf("\n");
 	}
+	printf("}\n");
+}
+
+void displayChosenCard(databaseType *db, int cardIdx)
+{
+	int row, col;
+	char output;
+	int moveNum = 0;
+	cardType card = db->cardDb[cardIdx];
+
+	printf("\n%s Card", card.name);
+	printf("\n{\n");
+
+	for (row = 0; row < SIDE; row++)
+	{
+		for (col = 0; col < SIDE; col++)
+		{
+			output = card.card[row][col];
+
+			if (output == 'x')
+			{
+				printf("%d ", moveNum);
+				moveNum++;
+			}
+			else
+			{
+				printf("%c ", output);
+			}
+		}
+		printf("\n");
+	}
+
 	printf("}\n");
 }
 
@@ -332,7 +386,7 @@ void displayYourCard (databaseType *db)
 	cards[0] = db->cardDb[db->playerCards[db->bCurrentPlayer][0]];
 	cards[1] = db->cardDb[db->playerCards[db->bCurrentPlayer][1]];
 
-	displayCard(cards, 2);
+	displayCard(cards);
 }
 
 /*
@@ -358,7 +412,7 @@ void displayOpponentsCard (databaseType *db)
 	cards[0] = db->cardDb[db->playerCards[!db->bCurrentPlayer][0]];
 	cards[1] = db->cardDb[db->playerCards[!db->bCurrentPlayer][1]];
 
-	displayCard(cards, 2);
+	displayCard(cards);
 }
 
 /*

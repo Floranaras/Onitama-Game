@@ -109,13 +109,13 @@ void viewDealtCard(databaseType *db);
 void viewColumnGuide(int key);
 void viewBlueBoard(databaseType *db);
 void viewRedBoard(databaseType *db);
-void displayCard(cardType card[], int count); // Included another parameter for count to display correct amount of cards
+void displayCard(cardType card[]); // Included another parameter for count to display correct amount of cards
 void displayYourCard(databaseType *db);
 void displayOpponentsCard(databaseType *db);
 void displayNeutral(databaseType *db);
 void displayBoard(databaseType *db);
 int findMoveIndex(databaseType *db, int cardIdx, int row, int col);
-// void displayCard(databaseType *db, int cardIdx);  // Updated signatureoid viewWinner(databaseType *db);
+void displayChosenCard(databaseType *db, int cardIdx);  // Updated signatureoid viewWinner(databaseType *db);
 
 /* Check Function Prototypes */
 void getPieces(char* student, char* sensei, int currentPlayer);

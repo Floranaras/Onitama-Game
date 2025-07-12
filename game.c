@@ -303,8 +303,6 @@ void makeMove (databaseType *db)
 	pointType src, dest;
 	int cardIdx;
 	int cardDecIdx;
-	cardType temp[1];
-	
 
 	if (!hasAnyValidMoves(db))
 	{
@@ -315,8 +313,7 @@ void makeMove (databaseType *db)
 	else
 	{
 		getInputCard(db, &cardDecIdx, &cardIdx);
-		temp[0] = db->cardDb[cardIdx];
-		displayCard(temp, 1); // Display the selected card
+		displayChosenCard(db, cardIdx);
 		getInputMove(db, &src, &dest, cardIdx);
 		movePiece(db, src, dest);
 		switchCards(db, cardDecIdx);
