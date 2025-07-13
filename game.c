@@ -389,7 +389,7 @@ void printSaveFile (moveType round, FILE *fp)
 	
 	else if (round.bPlayer == BLUE)
 	{	
-		fprintf(fp,"RED's turn\n");
+		fprintf(fp,"BLUE's turn\n");
 	}
 
 	fprintf(fp,"Card Used: %s\n", round.cardUsed);
