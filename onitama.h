@@ -16,6 +16,9 @@
 #define MASTER_LIST "data/movecards.txt"
 #define TEMPLE_WIN (0)
 #define SENSEI_WIN (1)
+#define RED_COLOR "\033[1;31m"
+#define BLUE_COLOR "\033[1;34m"
+#define RESET_COLOR "\033[0m"
 
 /* Aliases */
 typedef char String10[STR10];
@@ -101,21 +104,20 @@ void getName(String50 name);
 void initDatabase(databaseType *db);
 
 /* Display Function Prototypes */
-void displayWelcomeMessage(void);
-void displayWinCondition(void);
-void displayPlayerMenu(void);
+void displayWelcomeMessage();
+void displayWinCondition();
 void viewAvailableCards(databaseType *db);
 void viewDealtCard(databaseType *db);
 void viewColumnGuide(int key);
+void printColoredPiece (char piece);
+void printCardCol (cardType *card, int cardRow, int *moveNum, char *color);
+void printNeutralCol (cardType *card, int cardRow, int *moveNum);
+void printBlueCardRow (databaseType *db, int cardRow, int *moveNum);
 void viewBlueBoard(databaseType *db);
+void printRedCardRow (databaseType *db, int cardRow, int *moveNum);
 void viewRedBoard(databaseType *db);
-void displayCard(cardType card[]); // Included another parameter for count to display correct amount of cards
-void displayYourCard(databaseType *db);
-void displayOpponentsCard(databaseType *db);
-void displayNeutral(databaseType *db);
 void displayBoard(databaseType *db);
 int findMoveIndex(databaseType *db, int cardIdx, int row, int col);
-void displayChosenCard(databaseType *db, int cardIdx);  // Updated signatureoid viewWinner(databaseType *db);
 
 /* Check Function Prototypes */
 void getPieces(char* student, char* sensei, int currentPlayer);
@@ -145,7 +147,6 @@ void checkForSensei(databaseType *db, int *redFound, int *blueFound);
 void checkForWin(databaseType *db);
 void makeMove(databaseType *db);
 void clearScreen();
-void playerMenu(databaseType *db);
 void gameLoop(databaseType *db);
 
 

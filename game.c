@@ -326,7 +326,6 @@ void makeMove (databaseType *db)
 	else
 	{
 		getInputCard(db, &cardDecIdx, &cardIdx);
-//		displayChosenCard(db, cardIdx);
 		getInputMove(db, &src, &dest, cardIdx);
 		movePiece(db, src, dest);
 		switchCards(db, cardDecIdx);
@@ -348,36 +347,6 @@ void clearScreen()
 	#else
 		system("clear");
 	#endif
-}
-
-/*
-	This function displays the player's menu options and handles the player's choice of action.
-	Precondition: The databaseType structure is initialized and contains the game state.
-
-	@param db a pointer to the databaseType structure containing the game data
-
-	@return this function does not return a value, it updates the game state based on the player's actions
-*/
-void playerMenu (databaseType *db)
-{
-	int choice;
-
-	do 
-	{
-		displayPlayerMenu();
-		printf("Enter choice: ");
-		scanf("%d", &choice);
-		
-		switch (choice)
-		{
-			case 1: makeMove(db); break;
-			case 2: displayYourCard(db); break;
-			case 3: displayOpponentsCard(db); break;
-			case 4: displayNeutral(db); break;
-			case 5: clearScreen(); displayBoard(db); break;
-			default: printf("Invalid Input!\n");
-		}
-	}while (choice != 1);
 }
 
 void printSaveFile (moveType round, FILE *fp)
@@ -462,7 +431,6 @@ void gameLoop (databaseType *db)
 		displayBoard(db);
 		viewDealtCard(db);
 		displayWinCondition();
-//		playerMenu(db);
 		makeMove(db);
 		checkForWin(db);
 
