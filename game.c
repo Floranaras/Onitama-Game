@@ -1,5 +1,4 @@
 #include "check.c"
-#include <stdio.h>
 /*
 	This function initializes the game database with default values, including the board setup, player names, and card database.
 	Precondition: The databaseType structure is defined and the card database is loaded.
