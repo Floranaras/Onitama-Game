@@ -104,6 +104,7 @@ void getName(String50 name);
 void initDatabase(databaseType *db);
 
 /* Display Function Prototypes */
+void getPhrase(char* s);
 void displayWelcomeMessage();
 void displayWinCondition();
 void viewAvailableCards(databaseType *db);

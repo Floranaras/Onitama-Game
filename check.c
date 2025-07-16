@@ -9,6 +9,23 @@
 
    @return this function does not return a value; it modifies the values pointed to by student and sensei
 */
+
+void getPhrase(char* s)
+{
+    char ch;
+    int j = 0;
+
+    do
+    {
+        scanf("%c", &ch);
+        if (ch != '\n')
+        { 
+            s[j] = ch;
+            j++;
+            s[j] = '\0';
+        }
+    }while (ch != '\n' || j == 0); 
+}
 void getPieces (char* student, char* sensei, int currentPlayer)
 {
 	if (currentPlayer == BLUE)
