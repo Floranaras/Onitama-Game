@@ -1,0 +1,15 @@
+JEN vs. RAWR
+BLUE's turn
+Card Used: Tiger
+Moved From: 4 2
+Moved To: 2 2
+RED's turn
+Card Used: Frog
+Moved From: 0 2
+Moved To: 1 3
+BLUE's turn
+Card Used: Monkey
+Moved From: 2 2
+Moved To: 1 3
+
+JEN (Blue) wins by Master Capture!

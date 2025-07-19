@@ -109,6 +109,14 @@ void viewColumnGuide (int key)
 	}
 }
 
+/*
+   This function prints a colored piece based on its type (Red or Blue) for better visibility on the game board.
+   Precondition: The piece is either 'R', 'r', 'B', or 'b' for Red and Blue pieces respectively.
+
+   @param piece a character representing the piece to be printed
+
+   @return this function does not return a value, it prints the colored piece to the screen
+*/
 void printColoredPiece (char piece)
 {
     if (piece == 'R' || piece == 'r')
@@ -119,6 +127,15 @@ void printColoredPiece (char piece)
         printf("%c ", piece);
 }
 
+/*
+   This function prints one row of a card with move numbers and color formatting.
+   Precondition: The moveType structure is initialized and contains the move data.
+
+   @param round a moveType structure containing the move data
+   @param fp a file pointer to write the move data to
+
+   @return this function does not return a value, it writes the move data to the file
+*/
 void printCardCol (cardType *card, int cardRow, int *moveNum, char *color)
 {
     int j;
@@ -138,6 +155,16 @@ void printCardCol (cardType *card, int cardRow, int *moveNum, char *color)
     }
 }
 
+/*
+   This function prints the neutral row of the card, showing the available moves.
+   Precondition: The cardType structure is initialized and contains the card data.
+
+   @param card a pointer to a cardType structure containing the card data
+   @param cardRow an integer representing the row of the card to print
+   @param moveNum a pointer to an integer where the move number will be stored
+
+   @return this function does not return a value, it prints the neutral row to the screen
+*/
 void printNeutralCol (cardType *card, int cardRow, int *moveNum)
 {
     int j;
@@ -157,6 +184,16 @@ void printNeutralCol (cardType *card, int cardRow, int *moveNum)
     }
 }
 
+/*
+   This function prints the blue player's card row, including their cards, opponent's cards, and the neutral card.
+   Precondition: The databaseType structure is initialized and contains the game data.
+
+   @param db a pointer to the databaseType structure containing the game data
+   @param cardRow an integer representing the row of the card to print
+   @param moveNum an array of integers where the move numbers will be stored
+
+   @return this function does not return a value, it prints the blue player's card row to the screen
+*/
 void printBlueCardRow (databaseType *db, int cardRow, int *moveNum)
 {
     int opponent = !db->bCurrentPlayer;
@@ -223,6 +260,16 @@ void viewBlueBoard (databaseType *db)
 	}
 }
 
+/*
+   This function prints the red player's card row, including their cards, opponent's cards, and the neutral card.
+   Precondition: The databaseType structure is initialized and contains the game data.
+
+   @param db a pointer to the databaseType structure containing the game data
+   @param cardRow an integer representing the row of the card to print
+   @param moveNum an array of integers where the move numbers will be stored
+
+   @return this function does not return a value, it prints the red player's card row to the screen
+*/
 void printRedCardRow (databaseType *db, int cardRow, int *moveNum)
 {
     int opponent = !db->bCurrentPlayer;
@@ -286,186 +333,6 @@ void viewRedBoard (databaseType *db)
         printRedCardRow (db, cardRow, moveNum);
     	printf("\n");
 	}
-}
-
-// int findMoveIndex(databaseType *db, int cardIdx, int row, int col)
-// {
-//     int moveIdx = 0;
-    
-//     while (moveIdx < db->cardDb[cardIdx].movesCtr) 
-//     {
-//         pointType movePos;
-//         movePos.row = 2 + db->cardDb[cardIdx].moves[db->bCurrentPlayer][moveIdx].row;
-//         movePos.col = 2 + db->cardDb[cardIdx].moves[db->bCurrentPlayer][moveIdx].col;
-        
-//         if (movePos.row == row && movePos.col == col) 
-//         {
-//             return moveIdx;
-//         }
-        
-//         moveIdx++;
-//     }
-    
-//     return -1; // Should never happen for valid 'x' positions
-// }
-
-/*
-   This function displays the details of a specific card, including its name and movement pattern.
-   Precondition: The cardType structure is initialized and contains the card data.
-
-   @param card a cardType structure containing the card information to display
-
-   @return this function does not return a value, it prints the card details to the screen
-*/
-void displayCard (cardType card[])
-{
-	// int j;
-	// int k;
-	
-	// printf("\n%s Card", card.name);
-	// printf("\n{\n");
-
-	// for (j = 0; j < SIDE; j++)
-	// {
-	// 	for (k = 0; k < SIDE; k++)
-	// 	{
-	// 		printf("%c ", card.card[j][k]);
-	// 	}
-	// 	printf("\n");
-	// }
-
-	// printf("\n}\n");
-	
-	int row, col, i;
-	int moveNum[CARDS_PER_PLAYER] = {0};
-
-	for (i = 0; i < CARDS_PER_PLAYER; i++)
-	{
-		printf("%s\t\t", card[i].name);
-	}
-	printf("\n{\n");
-
-	for (row = 0; row < SIDE; row++)
-	{
-		for (i = 0; i < CARDS_PER_PLAYER; i++)
-		{
-			for (col = 0; col < SIDE; col++)
-			{
-				if (card[i].card[row][col] == 'x')
-					printf("%d ", moveNum[i]++);
-				else
-					printf("%c ", card[i].card[row][col]);
-			}
-			printf("\t");
-		}
-		printf("\n");
-	}
-	printf("}\n");
-}
-
-/*
-   This function displays the chosen card based on the card index provided.
-   Precondition: The databaseType structure is initialized and contains the card data.
-
-   @param db a pointer to the databaseType structure containing the game data
-   @param cardIdx the index of the card to display
-
-   @return this function does not return a value, it prints the chosen card to the screen
-*/
-void displayChosenCard(databaseType *db, int cardIdx)
-{
-	int row, col;
-	char output;
-	int moveNum = 0;
-	cardType card = db->cardDb[cardIdx];
-
-	printf("\n%s Card", card.name);
-	printf("\n{\n");
-
-	for (row = 0; row < SIDE; row++)
-	{
-		for (col = 0; col < SIDE; col++)
-		{
-			output = card.card[row][col];
-
-			if (output == 'x')
-			{
-				printf("%d ", moveNum);
-				moveNum++;
-			}
-			else
-			{
-				printf("%c ", output);
-			}
-		}
-		printf("\n");
-	}
-
-	printf("}\n");
-}
-
-/*
-   This function displays the player's own cards.
-   Precondition: The databaseType structure is initialized and contains the player's card data.
-
-   @param db a pointer to the databaseType structure containing the game data
-
-   @return this function does not return a value, it prints the player's cards to the screen
-*/
-void displayYourCard (databaseType *db)
-{
-	// int j;
-
-	// for (j = 0; j < 2; j++)
-	// {
-	// 	displayCard(db->cardDb[db->playerCards[db->bCurrentPlayer][j]]);
-	// }
-
-	cardType cards[2];
-
-	cards[0] = db->cardDb[db->playerCards[db->bCurrentPlayer][0]];
-	cards[1] = db->cardDb[db->playerCards[db->bCurrentPlayer][1]];
-
-	displayCard(cards);
-}
-
-/*
-   This function displays the opponent's cards.
-   Precondition: The databaseType structure is initialized and contains the opponent's card data.
-
-   @param db a pointer to the databaseType structure containing the game data
-
-   @return this function does not return a value, it prints the opponent's cards to the screen
-*/
-void displayOpponentsCard (databaseType *db)
-{
-	// int j;
-	// int opp = !db->bCurrentPlayer;
-
-	// for (j = 0; j < 2; j++)
-	// {
-	// 	displayCard(db->cardDb[db->playerCards[opp][j]]);
-	// }
-
-	cardType cards[2];
-
-	cards[0] = db->cardDb[db->playerCards[!db->bCurrentPlayer][0]];
-	cards[1] = db->cardDb[db->playerCards[!db->bCurrentPlayer][1]];
-
-	displayCard(cards);
-}
-
-/*
-   This function displays the neutral card.
-   Precondition: The databaseType structure is initialized and contains the neutral card data.
-
-   @param db a pointer to the databaseType structure containing the game data
-
-   @return this function does not return a value, it prints the neutral card to the screen
-*/
-void displayNeutral (databaseType *db)
-{
-	// displayCard(db->cardDb[db->neutralCard]);
 }
 
 /*
