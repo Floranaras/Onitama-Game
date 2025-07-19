@@ -110,13 +110,11 @@ int hasAnyValidMoves (databaseType *db)
 }
 
 /*
-   This function checks if the piece at the source position belongs to the current player and if the move index is valid for the selected card.
+   This function checks if the piece at the source position belongs to the current player.
    Precondition: The databaseType structure is initialized and contains the game state.
 
    @param db a pointer to the databaseType structure containing the game data
    @param src a pointType structure representing the source coordinates
-   @param moveIdx an integer representing the move index to check
-   @param cardIdx an integer representing the card index to check
 
    @return 1 if the piece is valid, otherwise 0
 */
@@ -215,7 +213,7 @@ int isValidForRareCase (databaseType *db, pointType src, int moveIdx, int cardId
    @param dest a pointer to a pointType structure where the destination coordinates will be stored
    @param cardIdx an integer representing the card index used for the move
 
-   @return this function does not return a value, it updates src and dest based on user input
+   @return 1 if the move is valid, otherwise 0
 */
 int isValidUserMove (databaseType *db, pointType src, int moveIdx, int cardIdx)
 {
