@@ -290,6 +290,17 @@ void checkForWin (databaseType *db)
 	}
 }
 
+/*
+	This function records the move made by the player in the game database.
+	Precondition: The databaseType structure is initialized and contains the game moves.
+
+	@param db a pointer to the databaseType structure containing the game data
+	@param src a pointType structure representing the source coordinates of the move
+	@param dest a pointType structure representing the destination coordinates of the move
+	@param cardIdx an integer representing the index of the card used for the move
+
+	@return this function does not return a value, it updates the game moves in the database
+*/
 void recordMoves (databaseType *db, pointType src, pointType dest, int cardIdx)
 { 
 	db->gameMoves[db->gameMovesCtr].bPlayer = db->bCurrentPlayer;
