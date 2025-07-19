@@ -407,10 +407,9 @@ void outputSaveFile (databaseType *db)
 		else if (db->bWinner == RED && db->bWinCondition == SENSEI_WIN) 
 		{
 			fprintf(fp,"\n%s (Red) wins by Master Capture!\n", db->p2);
-		}
-		
+		}	
 	}
-
+    fclose(fp);
 }
 
 /*

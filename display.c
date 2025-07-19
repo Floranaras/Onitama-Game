@@ -23,7 +23,6 @@ void displayWinCondition ()
 	printf("RED wins by reaching (4,2) | BLUE wins by reaching (0,2)\n");
 }
 
-
 /*
    This function displays the available cards in the Onitama game.
    Precondition: The databaseType structure is initialized and contains the card data.
@@ -101,7 +100,6 @@ void viewColumnGuide (int key)
 			printf("%d ", j);
 		}
 	}
-
 	else if (key == RED)
 	{
 		for (j = SIDE - 1; j >= 0; j--)
@@ -132,12 +130,11 @@ void printCardCol (cardType *card, int cardRow, int *moveNum, char *color)
 
         if (ch == 'x')
         {
-            printf("%s%d" RESET_COLOR " ",color, *moveNum);
+            printf("%s%d" RESET_COLOR " ", color, *moveNum);
             (*moveNum)++;
         }
-
         else
-            printf("%s%c" RESET_COLOR " ",color, ch);
+            printf("%s%c" RESET_COLOR " ", color, ch);
     }
 }
 
@@ -155,7 +152,6 @@ void printNeutralCol (cardType *card, int cardRow, int *moveNum)
             printf("%d ", *moveNum);
             (*moveNum)++;
         }
-
         else
             printf("%c ", ch);
     }
@@ -163,44 +159,30 @@ void printNeutralCol (cardType *card, int cardRow, int *moveNum)
 
 void printBlueCardRow (databaseType *db, int cardRow, int *moveNum)
 {
-    int j = 0;
-    cardType *card;
-    cardType *yourCard1 = &db->cardDb[db->playerCards[db->bCurrentPlayer][0]]; 
-    cardType *yourCard2 = &db->cardDb[db->playerCards[db->bCurrentPlayer][1]]; 
     int opponent = !db->bCurrentPlayer;
-    cardType *oppCard1 = &db->cardDb[db->playerCards[opponent][0]];
-    cardType *oppCard2 = &db->cardDb[db->playerCards[opponent][1]];
-    cardType *neutralCard  = &db->cardDb[db->neutralCard];
 
     printf("\t\t");
 
-    while (j < 2)
-    {
-        if (!j)
-            card = yourCard1;
-        else
-            card = yourCard2;
-        printCardCol(card, cardRow, &moveNum[j], BLUE_COLOR);
-        printf("\t");
-        j++;
-    }
+    // Your cards (Blue)
+    printCardCol(&db->cardDb[db->playerCards[db->bCurrentPlayer][0]], 
+                 cardRow, &moveNum[0], BLUE_COLOR);
+    printf("\t");
+    printCardCol(&db->cardDb[db->playerCards[db->bCurrentPlayer][1]], 
+                 cardRow, &moveNum[1], BLUE_COLOR);
+    printf("\t");
 
-    j = 0;
+    // Opponent cards (Red)
+    printCardCol(&db->cardDb[db->playerCards[opponent][0]], 
+                 cardRow, &moveNum[2], RED_COLOR);
+    printf("\t");
+    printCardCol(&db->cardDb[db->playerCards[opponent][1]], 
+                 cardRow, &moveNum[3], RED_COLOR);
+    printf("\t");
 
-    while (j < 2)
-    {
-        if (!j)
-            card = oppCard1;
-        else
-            card = oppCard2;
-
-        printCardCol(card, cardRow, &moveNum[2 + j], RED_COLOR);
-        printf("\t");
-        j++;
-    }
-
-    printNeutralCol (neutralCard, cardRow, &moveNum[4]);
+    // Neutral card
+    printNeutralCol(&db->cardDb[db->neutralCard], cardRow, &moveNum[4]);
 }
+
 /*
    This function displays the game board from the perspective of the blue player.
    Precondition: The databaseType structure is initialized and contains the game board data.
@@ -214,19 +196,18 @@ void viewBlueBoard (databaseType *db)
     int row, col, cardRow;
 	char piece;
 	int moveNum[5] = {0}; 
-
-	cardType *yourCard1 = &db->cardDb[db->playerCards[db->bCurrentPlayer][0]];
-	cardType *yourCard2 = &db->cardDb[db->playerCards[db->bCurrentPlayer][1]];
 	int opponent = !db->bCurrentPlayer;
-	cardType *oppCard1 = &db->cardDb[db->playerCards[opponent][0]];
-	cardType *oppCard2 = &db->cardDb[db->playerCards[opponent][1]];
-	cardType *neutralCard = &db->cardDb[db->neutralCard];
 
 	printf("\n=== GAME BOARD ===\t\033[1;34m======= YOUR CARDS =======\033[0m\t\033[1;31m===== OPPONENT CARDS =====\033[0m\t=== NEUTRAL CARD ===\n");
 	
 	printf("  ");
 	viewColumnGuide(BLUE); 
-	printf("\t\t\033[1;34m%-10s\t%-10s\033[0m\t\033[1;31m%-10s\t%-10s\033[0m\t%-10s\n", yourCard1->name, yourCard2->name, oppCard1->name, oppCard2->name, neutralCard->name);
+	printf("\t\t\033[1;34m%-10s\t%-10s\033[0m\t\033[1;31m%-10s\t%-10s\033[0m\t%-10s\n", 
+		db->cardDb[db->playerCards[db->bCurrentPlayer][0]].name, 
+		db->cardDb[db->playerCards[db->bCurrentPlayer][1]].name, 
+		db->cardDb[db->playerCards[opponent][0]].name, 
+		db->cardDb[db->playerCards[opponent][1]].name, 
+		db->cardDb[db->neutralCard].name);
 
 	for (row = 0, cardRow = 0; row < SIDE; row++, cardRow++)
 	{
@@ -244,44 +225,28 @@ void viewBlueBoard (databaseType *db)
 
 void printRedCardRow (databaseType *db, int cardRow, int *moveNum)
 {
-    int j = 0;
-    cardType *card;
-	cardType *yourCard1 = &db->cardDb[db->playerCards[db->bCurrentPlayer][0]];
-	cardType *yourCard2 = &db->cardDb[db->playerCards[db->bCurrentPlayer][1]];
-	int opponent = !db->bCurrentPlayer;
-	cardType *oppCard1 = &db->cardDb[db->playerCards[opponent][0]];
-	cardType *oppCard2 = &db->cardDb[db->playerCards[opponent][1]];
-	cardType *neutralCard = &db->cardDb[db->neutralCard];
+    int opponent = !db->bCurrentPlayer;
 
     printf("\t\t");
 
-    while (j < 2)
-    {
-        if (!j)
-            card = yourCard1;
-        else
-            card = yourCard2;
+    // Your cards (Red)
+    printCardCol(&db->cardDb[db->playerCards[db->bCurrentPlayer][0]], 
+                 cardRow, &moveNum[0], RED_COLOR);
+    printf("\t");
+    printCardCol(&db->cardDb[db->playerCards[db->bCurrentPlayer][1]], 
+                 cardRow, &moveNum[1], RED_COLOR);
+    printf("\t");
 
-        printCardCol (card, cardRow, &moveNum[j], RED_COLOR);
-        printf("\t");
-        j++;
-    }
+    // Opponent cards (Blue)
+    printCardCol(&db->cardDb[db->playerCards[opponent][0]], 
+                 cardRow, &moveNum[2], BLUE_COLOR);
+    printf("\t");
+    printCardCol(&db->cardDb[db->playerCards[opponent][1]], 
+                 cardRow, &moveNum[3], BLUE_COLOR);
+    printf("\t");
 
-    j = 0;
-
-    while (j < 2)
-    {
-        if (!j)
-            card = oppCard1;
-        else
-            card = oppCard2;
-
-        printCardCol (card, cardRow, &moveNum[j], BLUE_COLOR);
-        printf("\t");
-        j++;
-    }
-    
-    printNeutralCol(neutralCard, cardRow, &moveNum[4]);
+    // Neutral card
+    printNeutralCol(&db->cardDb[db->neutralCard], cardRow, &moveNum[4]);
 }
 
 /*
@@ -296,19 +261,18 @@ void viewRedBoard (databaseType *db)
 {
 	int row, col, cardRow;
 	char piece;
-	int moveNum[5] = {0}; // One for each card
-
-	cardType *yourCard1 = &db->cardDb[db->playerCards[db->bCurrentPlayer][0]];
-	cardType *yourCard2 = &db->cardDb[db->playerCards[db->bCurrentPlayer][1]];
+	int moveNum[5] = {0};
 	int opponent = !db->bCurrentPlayer;
-	cardType *oppCard1 = &db->cardDb[db->playerCards[opponent][0]];
-	cardType *oppCard2 = &db->cardDb[db->playerCards[opponent][1]];
-	cardType *neutralCard = &db->cardDb[db->neutralCard];
 
 	printf("\n=== GAME BOARD ===\t\033[1;31m======= YOUR CARDS =======\033[0m\t\033[1;34m===== OPPONENT CARDS =====\033[0m\t=== NEUTRAL CARD ===\n");
 	printf("  ");
 	viewColumnGuide(RED);
-	printf("\t\t\033[1;31m%-10s\t%-10s\033[0m\t\033[1;34m%-10s\t%-10s\033[0m\t%-10s\n", yourCard1->name, yourCard2->name, oppCard1->name, oppCard2->name, neutralCard->name);
+	printf("\t\t\033[1;31m%-10s\t%-10s\033[0m\t\033[1;34m%-10s\t%-10s\033[0m\t%-10s\n", 
+		db->cardDb[db->playerCards[db->bCurrentPlayer][0]].name, 
+		db->cardDb[db->playerCards[db->bCurrentPlayer][1]].name, 
+		db->cardDb[db->playerCards[opponent][0]].name, 
+		db->cardDb[db->playerCards[opponent][1]].name, 
+		db->cardDb[db->neutralCard].name);
 
 	for (row = SIDE - 1, cardRow = 0; row >= 0; row--, cardRow++)
 	{
@@ -335,14 +299,9 @@ void viewRedBoard (databaseType *db)
 void displayBoard (databaseType *db)
 {
 	if (db->bCurrentPlayer == BLUE)
-	{
 		viewBlueBoard(db);
-	}
-
-	if (db->bCurrentPlayer == RED)
-	{
+	else if (db->bCurrentPlayer == RED)
 		viewRedBoard(db);
-	}
 }
 
 /*
@@ -358,41 +317,11 @@ void viewWinner (databaseType *db)
     printf("\n=== GAME OVER ===\n");
     
     if (db->bWinner == BLUE && db->bWinCondition == TEMPLE_WIN) 
-	{
         printf("%s (Blue) wins by Temple Capture!\n", db->p1);
-    }
     else if (db->bWinner == BLUE && db->bWinCondition == SENSEI_WIN) 
-	{
         printf("%s (Blue) wins by Master Capture!\n", db->p1);
-    }
     else if (db->bWinner == RED && db->bWinCondition == TEMPLE_WIN) 
-	{
         printf("%s (Red) wins by Temple Capture!\n", db->p2);
-    }
     else if (db->bWinner == RED && db->bWinCondition == SENSEI_WIN) 
-	{
         printf("%s (Red) wins by Master Capture!\n", db->p2);
-    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

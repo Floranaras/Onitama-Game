@@ -104,7 +104,6 @@ void getName(String50 name);
 void initDatabase(databaseType *db);
 
 /* Display Function Prototypes */
-void getPhrase(char* s);
 void displayWelcomeMessage();
 void displayWinCondition();
 void viewAvailableCards(databaseType *db);
@@ -118,14 +117,11 @@ void viewBlueBoard(databaseType *db);
 void printRedCardRow (databaseType *db, int cardRow, int *moveNum);
 void viewRedBoard(databaseType *db);
 void displayBoard(databaseType *db);
-int findMoveIndex(databaseType *db, int cardIdx, int row, int col);
 
 /* Check Function Prototypes */
 void getPieces(char* student, char* sensei, int currentPlayer);
 int isOwnPiece(databaseType *db, pointType src, char student, char sensei);
-int followsPattern(databaseType *db, pointType src, pointType dest, int cardIdx);
 int isInRange(pointType dest);
-int isValid(databaseType *db, pointType src, pointType dest, int cardIdx, int verbose);
 int findMoves(databaseType *db, pointType src);
 int hasAnyValidMoves(databaseType *db);
 pointType getDestinationFromMoveIdx(databaseType *db, pointType src, int moveIdx, int cardIdx);
