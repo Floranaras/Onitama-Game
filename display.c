@@ -183,6 +183,80 @@ void printBlueCardRow (databaseType *db, int cardRow, int *moveNum)
     printNeutralCol(&db->cardDb[db->neutralCard], cardRow, &moveNum[4]);
 }
 
+void printColoredPiece (char piece)
+{
+    if (piece == 'R' || piece == 'r')
+        printf(RED_COLOR "%c" RESET_COLOR " ", piece);
+    else if (piece == 'B' || piece == 'b')
+        printf(BLUE_COLOR "%c" RESET_COLOR " ", piece);
+    else
+        printf("%c ", piece);
+}
+
+void printCardCol (cardType *card, int cardRow, int *moveNum, char *color)
+{
+    int j;
+    char ch;
+
+    for (j = 0; j < SIDE; j++)
+    { 
+        ch = card->card[cardRow][j];
+
+        if (ch == 'x')
+        {
+            printf("%s%d" RESET_COLOR " ", color, *moveNum);
+            (*moveNum)++;
+        }
+        else
+            printf("%s%c" RESET_COLOR " ", color, ch);
+    }
+}
+
+void printNeutralCol (cardType *card, int cardRow, int *moveNum)
+{
+    int j;
+    char ch;
+
+    for (j = 0; j < SIDE; j++)
+    { 
+        ch = card->card[cardRow][j];
+
+        if (ch == 'x')
+        {
+            printf("%d ", *moveNum);
+            (*moveNum)++;
+        }
+        else
+            printf("%c ", ch);
+    }
+}
+
+void printBlueCardRow (databaseType *db, int cardRow, int *moveNum)
+{
+    int opponent = !db->bCurrentPlayer;
+
+    printf("\t\t");
+
+    // Your cards (Blue)
+    printCardCol(&db->cardDb[db->playerCards[db->bCurrentPlayer][0]], 
+                 cardRow, &moveNum[0], BLUE_COLOR);
+    printf("\t");
+    printCardCol(&db->cardDb[db->playerCards[db->bCurrentPlayer][1]], 
+                 cardRow, &moveNum[1], BLUE_COLOR);
+    printf("\t");
+
+    // Opponent cards (Red)
+    printCardCol(&db->cardDb[db->playerCards[opponent][0]], 
+                 cardRow, &moveNum[2], RED_COLOR);
+    printf("\t");
+    printCardCol(&db->cardDb[db->playerCards[opponent][1]], 
+                 cardRow, &moveNum[3], RED_COLOR);
+    printf("\t");
+
+    // Neutral card
+    printNeutralCol(&db->cardDb[db->neutralCard], cardRow, &moveNum[4]);
+}
+
 /*
    This function displays the game board from the perspective of the blue player, including the player's cards, opponent's cards and the neutral card horizontally.
    Precondition: The databaseType structure is initialized and contains the game board data.
@@ -221,6 +295,32 @@ void viewBlueBoard (databaseType *db)
         printBlueCardRow (db, cardRow, moveNum);
 		printf("\n");
 	}
+}
+
+void printRedCardRow (databaseType *db, int cardRow, int *moveNum)
+{
+    int opponent = !db->bCurrentPlayer;
+
+    printf("\t\t");
+
+    // Your cards (Red)
+    printCardCol(&db->cardDb[db->playerCards[db->bCurrentPlayer][0]], 
+                 cardRow, &moveNum[0], RED_COLOR);
+    printf("\t");
+    printCardCol(&db->cardDb[db->playerCards[db->bCurrentPlayer][1]], 
+                 cardRow, &moveNum[1], RED_COLOR);
+    printf("\t");
+
+    // Opponent cards (Blue)
+    printCardCol(&db->cardDb[db->playerCards[opponent][0]], 
+                 cardRow, &moveNum[2], BLUE_COLOR);
+    printf("\t");
+    printCardCol(&db->cardDb[db->playerCards[opponent][1]], 
+                 cardRow, &moveNum[3], BLUE_COLOR);
+    printf("\t");
+
+    // Neutral card
+    printNeutralCol(&db->cardDb[db->neutralCard], cardRow, &moveNum[4]);
 }
 
 void printRedCardRow (databaseType *db, int cardRow, int *moveNum)
@@ -363,6 +463,15 @@ void displayCard (cardType card[])
 	printf("}\n");
 }
 
+/*
+   This function displays the chosen card based on the card index provided.
+   Precondition: The databaseType structure is initialized and contains the card data.
+
+   @param db a pointer to the databaseType structure containing the game data
+   @param cardIdx the index of the card to display
+
+   @return this function does not return a value, it prints the chosen card to the screen
+*/
 void displayChosenCard(databaseType *db, int cardIdx)
 {
 	int row, col;
