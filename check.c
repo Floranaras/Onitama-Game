@@ -1,4 +1,5 @@
 #include "display.c"
+
 /*
    This function modifies the characters used to represent the student's and sensei's pieces for the given player.
    Precondition: currentPlayer is either BLUE or RED.
@@ -9,7 +10,6 @@
 
    @return this function does not return a value; it modifies the values pointed to by student and sensei
 */
-
 void getPieces (char* student, char* sensei, int currentPlayer)
 {
 	if (currentPlayer == BLUE)
@@ -109,6 +109,17 @@ int hasAnyValidMoves (databaseType *db)
 	return bFound;
 }
 
+/*
+   This function checks if the piece at the source position belongs to the current player and if the move index is valid for the selected card.
+   Precondition: The databaseType structure is initialized and contains the game state.
+
+   @param db a pointer to the databaseType structure containing the game data
+   @param src a pointType structure representing the source coordinates
+   @param moveIdx an integer representing the move index to check
+   @param cardIdx an integer representing the card index to check
+
+   @return 1 if the piece is valid and the move index is valid, otherwise 0
+*/
 int isValidPiece (databaseType *db, pointType src)
 {
 	char sensei, student;
@@ -116,11 +127,32 @@ int isValidPiece (databaseType *db, pointType src)
     return isOwnPiece(db, src, student, sensei);
 }
 
+/*
+   This function checks if the move index is valid for the given card index.
+   Precondition: The databaseType structure is initialized and contains the card data.
+
+   @param db a pointer to the databaseType structure containing the game data
+   @param moveIdx an integer representing the move index to check
+   @param cardIdx an integer representing the card index to check
+
+   @return 1 if the move index is valid, otherwise 0
+*/
 int isValidMoveIdx (databaseType *db, int moveIdx, int cardIdx)
 {
 	return moveIdx >= 0 && moveIdx < db->cardDb[cardIdx].movesCtr;
 }
 
+/*
+   This function retrieves the destination coordinates based on the source coordinates, move index, and card index.
+   Precondition: The databaseType structure is initialized and contains the card data.
+
+   @param db a pointer to the databaseType structure containing the game data
+   @param src a pointType structure representing the source coordinates
+   @param moveIdx an integer representing the move index
+   @param cardIdx an integer representing the card index
+
+   @return a pointType structure representing the destination coordinates
+*/
 pointType getDestinationFromMoveIdx (databaseType *db, pointType src, int moveIdx, int cardIdx)
 {
 	pointType dest;
@@ -131,6 +163,15 @@ pointType getDestinationFromMoveIdx (databaseType *db, pointType src, int moveId
 	return dest;
 }
 
+/*
+   This function checks if the destination coordinates are valid for the current player.
+   Precondition: The databaseType structure is initialized and contains the game data.
+
+   @param db a pointer to the databaseType structure containing the game data
+   @param dest a pointType structure representing the destination coordinates
+
+   @return 1 if the destination is valid, otherwise 0
+*/
 int isValidDest (databaseType *db, pointType dest)
 {
 	char student, sensei;
@@ -143,6 +184,18 @@ int isValidDest (databaseType *db, pointType dest)
 
     return 1;
 }
+
+/*
+   This function checks if the destination coordinates are valid for a rare case where the player has no valid moves.
+   Precondition: The databaseType structure is initialized and contains the game data.
+
+   @param db a pointer to the databaseType structure containing the game data
+   @param src a pointType structure representing the source coordinates
+   @param moveIdx an integer representing the move index
+   @param cardIdx an integer representing the card index
+
+   @return 1 if the destination is valid, otherwise 0
+*/
 int isValidForRareCase (databaseType *db, pointType src, int moveIdx, int cardIdx)
 {
 	if (!isValidMoveIdx(db, moveIdx, cardIdx)) 
@@ -153,6 +206,17 @@ int isValidForRareCase (databaseType *db, pointType src, int moveIdx, int cardId
     return isValidDest(db, dest);
 }
 
+/*
+   This function prompts the user for the source and destination coordinates of a piece to move.
+   Precondition: The databaseType structure is initialized and contains the game state.
+
+   @param db a pointer to the databaseType structure containing the game data
+   @param src a pointer to a pointType structure where the source coordinates will be stored
+   @param dest a pointer to a pointType structure where the destination coordinates will be stored
+   @param cardIdx an integer representing the card index used for the move
+
+   @return this function does not return a value, it updates src and dest based on user input
+*/
 int isValidUserMove (databaseType *db, pointType src, int moveIdx, int cardIdx)
 {
     char student, sensei;
@@ -185,5 +249,4 @@ int isValidUserMove (databaseType *db, pointType src, int moveIdx, int cardIdx)
     }
     
     return 1;
-
 }
