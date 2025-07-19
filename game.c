@@ -348,6 +348,15 @@ void clearScreen()
 	#endif
 }
 
+/*
+   This function prints the game moves to a file in a readable format.
+   Precondition: The moveType structure is defined and the file pointer is valid.
+
+   @param round a moveType structure containing the move data
+   @param fp a file pointer to write the move data to
+
+   @return this function does not return a value, it writes the move data to the file
+*/
 void printSaveFile (moveType round, FILE *fp)
 {
 	if (round.bPlayer == RED)
@@ -365,6 +374,14 @@ void printSaveFile (moveType round, FILE *fp)
 	fprintf(fp,"Moved To: %d %d\n", round.toRow, round.toCol);
 }
 
+/*
+   This function outputs the game state to a file after the game is over.
+   Precondition: The databaseType structure is initialized and contains the game data.
+
+   @param db a pointer to the databaseType structure containing the game data
+
+   @return this function does not return a value, it writes the game state to a file
+*/
 void outputSaveFile (databaseType *db)
 {
 	FILE *fp;
