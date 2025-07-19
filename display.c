@@ -126,7 +126,7 @@ void viewColumnGuide (int key)
 }
 
 /*
-   This function displays the game board from the perspective of the blue player.
+   This function displays the game board from the perspective of the blue player, including the player's cards, opponent's cards and the neutral card horizontally.
    Precondition: The databaseType structure is initialized and contains the game board data.
 
    @param db a pointer to the databaseType structure containing the game data
@@ -293,7 +293,7 @@ void viewBlueBoard (databaseType *db)
 }
 
 /*
-   This function displays the game board from the perspective of the red player.
+   This function displays the game board from the perspective of the red player, including the player's cards, opponent's cards and the neutral card horizontally.
    Precondition: The databaseType structure is initialized and contains the game board data.
 
    @param db a pointer to the databaseType structure containing the game data
@@ -545,6 +545,15 @@ void displayCard (cardType card[])
 	printf("}\n");
 }
 
+/*
+   This function displays the chosen card based on the card index provided.
+   Precondition: The databaseType structure is initialized and contains the card data.
+
+   @param db a pointer to the databaseType structure containing the game data
+   @param cardIdx the index of the card to display
+
+   @return this function does not return a value, it prints the chosen card to the screen
+*/
 void displayChosenCard(databaseType *db, int cardIdx)
 {
 	int row, col;
