@@ -118,7 +118,7 @@ int hasAnyValidMoves (databaseType *db)
    @param moveIdx an integer representing the move index to check
    @param cardIdx an integer representing the card index to check
 
-   @return 1 if the piece is valid and the move index is valid, otherwise 0
+   @return 1 if the piece is valid, otherwise 0
 */
 int isValidPiece (databaseType *db, pointType src)
 {
@@ -247,6 +247,6 @@ int isValidUserMove (databaseType *db, pointType src, int moveIdx, int cardIdx)
         printf("Invalid move: cannot move onto your own piece.\n");
         return 0;
     }
-    
+
     return 1;
 }
