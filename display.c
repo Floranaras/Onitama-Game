@@ -136,7 +136,7 @@ void printColoredPiece (char piece)
 
    @return this function does not return a value, it writes the move data to the file
 */
-void printCardCol (cardType *card, int cardRow, int *moveNum, char *color)
+void printCardRow (cardType *card, int cardRow, int *moveNum, char *color)
 {
     int j;
     char ch;
@@ -165,7 +165,7 @@ void printCardCol (cardType *card, int cardRow, int *moveNum, char *color)
 
    @return this function does not return a value, it prints the neutral row to the screen
 */
-void printNeutralCol (cardType *card, int cardRow, int *moveNum)
+void printNeutralRow (cardType *card, int cardRow, int *moveNum)
 {
     int j;
     char ch;
@@ -201,23 +201,23 @@ void printBlueCardRow (databaseType *db, int cardRow, int *moveNum)
     printf("\t\t");
 
     // Your cards (Blue)
-    printCardCol(&db->cardDb[db->playerCards[db->bCurrentPlayer][0]], 
+    printCardRow(&db->cardDb[db->playerCards[db->bCurrentPlayer][0]], 
                  cardRow, &moveNum[0], BLUE_COLOR);
     printf("\t");
-    printCardCol(&db->cardDb[db->playerCards[db->bCurrentPlayer][1]], 
+    printCardRow(&db->cardDb[db->playerCards[db->bCurrentPlayer][1]], 
                  cardRow, &moveNum[1], BLUE_COLOR);
     printf("\t");
 
     // Opponent cards (Red)
-    printCardCol(&db->cardDb[db->playerCards[opponent][0]], 
+    printCardRow(&db->cardDb[db->playerCards[opponent][0]], 
                  cardRow, &moveNum[2], RED_COLOR);
     printf("\t");
-    printCardCol(&db->cardDb[db->playerCards[opponent][1]], 
+    printCardRow(&db->cardDb[db->playerCards[opponent][1]], 
                  cardRow, &moveNum[3], RED_COLOR);
     printf("\t");
 
     // Neutral card
-    printNeutralCol(&db->cardDb[db->neutralCard], cardRow, &moveNum[4]);
+    printNeutralRow(&db->cardDb[db->neutralCard], cardRow, &moveNum[4]);
 }
 
 /*
@@ -277,23 +277,23 @@ void printRedCardRow (databaseType *db, int cardRow, int *moveNum)
     printf("\t\t");
 
     // Your cards (Red)
-    printCardCol(&db->cardDb[db->playerCards[db->bCurrentPlayer][0]], 
+    printCardRow(&db->cardDb[db->playerCards[db->bCurrentPlayer][0]], 
                  cardRow, &moveNum[0], RED_COLOR);
     printf("\t");
-    printCardCol(&db->cardDb[db->playerCards[db->bCurrentPlayer][1]], 
+    printCardRow(&db->cardDb[db->playerCards[db->bCurrentPlayer][1]], 
                  cardRow, &moveNum[1], RED_COLOR);
     printf("\t");
 
     // Opponent cards (Blue)
-    printCardCol(&db->cardDb[db->playerCards[opponent][0]], 
+    printCardRow(&db->cardDb[db->playerCards[opponent][0]], 
                  cardRow, &moveNum[2], BLUE_COLOR);
     printf("\t");
-    printCardCol(&db->cardDb[db->playerCards[opponent][1]], 
+    printCardRow(&db->cardDb[db->playerCards[opponent][1]], 
                  cardRow, &moveNum[3], BLUE_COLOR);
     printf("\t");
 
     // Neutral card
-    printNeutralCol(&db->cardDb[db->neutralCard], cardRow, &moveNum[4]);
+    printNeutralRow(&db->cardDb[db->neutralCard], cardRow, &moveNum[4]);
 }
 
 /*
