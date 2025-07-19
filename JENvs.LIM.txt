@@ -1,0 +1,15 @@
+JEN vs. LIM
+RED's turn
+Card Used: Crab
+Moved From: 0 2
+Moved To: 1 2
+BLUE's turn
+Card Used: Tiger
+Moved From: 4 2
+Moved To: 2 2
+RED's turn
+Card Used: Horse
+Moved From: 1 2
+Moved To: 2 2
+
+LIM (Red) wins by Master Capture!
