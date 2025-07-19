@@ -117,6 +117,7 @@ void getName(String50 name)
 void initDatabase (databaseType *db)
 {
 	db->bGameOver = 0;
+	db->gameMovesCtr = 0;
 	initBoard(db);
 	loadCardsFromFile(db);
 	dealCards(db);

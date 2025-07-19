@@ -290,6 +290,18 @@ void checkForWin (databaseType *db)
 	}
 }
 
+void recordMoves (databaseType *db, pointType src, pointType dest, int cardIdx)
+{ 
+	db->gameMoves[db->gameMovesCtr].bPlayer = db->bCurrentPlayer;
+	strcpy(db->gameMoves[db->gameMovesCtr].cardUsed,db->cardDb[cardIdx].name);
+	db->gameMoves[db->gameMovesCtr].fromRow = src.row;
+	db->gameMoves[db->gameMovesCtr].fromCol = src.col;
+	db->gameMoves[db->gameMovesCtr].toRow = dest.row;
+	db->gameMoves[db->gameMovesCtr].toCol = dest.col;
+
+	db->gameMovesCtr++;
+}
+
 /*
 	This function handles the player's turn by checking for valid moves, getting input for the card and move, and executing the move.
 	Precondition: The databaseType structure is initialized and contains the game state.
@@ -313,11 +325,10 @@ void makeMove (databaseType *db)
 	else
 	{
 		getInputCard(db, &cardDecIdx, &cardIdx);
-		displayChosenCard(db, cardIdx);
 		getInputMove(db, &src, &dest, cardIdx);
 		movePiece(db, src, dest);
 		switchCards(db, cardDecIdx);
-		//recordMoves(db); future feature to record moves for game save and hall of fame
+		recordMoves(db,src,dest,cardIdx);
 	}
 }
 
@@ -337,34 +348,68 @@ void clearScreen()
 	#endif
 }
 
-/*
-	This function displays the player's menu options and handles the player's choice of action.
-	Precondition: The databaseType structure is initialized and contains the game state.
-
-	@param db a pointer to the databaseType structure containing the game data
-
-	@return this function does not return a value, it updates the game state based on the player's actions
-*/
-void playerMenu (databaseType *db)
+void printSaveFile (moveType round, FILE *fp)
 {
-	int choice;
-
-	do 
+	if (round.bPlayer == RED)
 	{
-		displayPlayerMenu();
-		printf("Enter choice: ");
-		scanf("%d", &choice);
-		
-		switch (choice)
-		{
-			case 1: makeMove(db); break;
-			case 2: displayYourCard(db); break;
-			case 3: displayOpponentsCard(db); break;
-			case 4: displayNeutral(db); break;
-			case 5: clearScreen(); displayBoard(db); break;
-			default: printf("Invalid Input!\n");
+		fprintf(fp,"RED's turn\n");
+	} 
+	
+	else if (round.bPlayer == BLUE)
+	{	
+		fprintf(fp,"BLUE's turn\n");
+	}
+
+	fprintf(fp,"Card Used: %s\n", round.cardUsed);
+	fprintf(fp,"Moved From: %d %d\n", round.fromRow, round.fromCol);
+	fprintf(fp,"Moved To: %d %d\n", round.toRow, round.toCol);
+}
+
+void outputSaveFile (databaseType *db)
+{
+	FILE *fp;
+	String30 saveFileName;
+	int j;
+
+	strcpy(saveFileName, db->p1);
+	strcat(saveFileName,"vs.");
+	strcat(saveFileName,db->p2);
+	strcat(saveFileName,".txt");
+
+	fp = fopen (saveFileName,"w");
+
+	if (fp == NULL)
+	{
+		printf("Error saving file\n");
+	}
+
+	else 
+	{
+		fprintf(fp,"%s vs. %s\n",db->p1, db->p2);
+
+		for (j = 0; j < db->gameMovesCtr; j++)
+		{	
+			printSaveFile(db->gameMoves[j], fp);
 		}
-	}while (choice != 1);
+
+		if (db->bWinner == BLUE && db->bWinCondition == TEMPLE_WIN) 
+		{
+			fprintf(fp,"\n%s (Blue) wins by Temple Capture!\n", db->p1);
+		}
+		else if (db->bWinner == BLUE && db->bWinCondition == SENSEI_WIN) 
+		{
+			fprintf(fp,"\n%s (Blue) wins by Master Capture!\n", db->p1);
+		}
+		else if (db->bWinner == RED && db->bWinCondition == TEMPLE_WIN) 
+		{
+			fprintf(fp,"\n%s (Red) wins by Temple Capture!\n", db->p2);
+		}
+		else if (db->bWinner == RED && db->bWinCondition == SENSEI_WIN) 
+		{
+			fprintf(fp,"\n%s (Red) wins by Master Capture!\n", db->p2);
+		}	
+	}
+    fclose(fp);
 }
 
 /*
@@ -384,15 +429,17 @@ void gameLoop (databaseType *db)
 		displayBoard(db);
 		viewDealtCard(db);
 		displayWinCondition();
-//		playerMenu(db);
 		makeMove(db);
 		checkForWin(db);
 
 		db->bCurrentPlayer = !db->bCurrentPlayer;
+		clearScreen();	
 	}
 
 	if (db->bGameOver)
 	{
 		viewWinner(db);
-	}
+	} 
+	
+	outputSaveFile(db);
 }
