@@ -106,6 +106,7 @@ void getInputMove(databaseType *db, pointType *src, pointType *dest, int cardIdx
         {
             printf("Invalid input format.\n");
             inputOK = 0;
+            while (scanf("%*s") == 1);
         }
         
         if (inputOK)
