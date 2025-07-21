@@ -70,8 +70,12 @@ void getInputCard (databaseType *db, int *cardDecIdx, int *cardIdx)
 		printf("0] %s ", db->cardDb[db->playerCards[db->bCurrentPlayer][0]].name);
 		printf("1] %s\n", db->cardDb[db->playerCards[db->bCurrentPlayer][1]].name);
 		printf("Enter card of choice: ");
-		scanf("%d", cardDecIdx);
-	
+
+		if (scanf("%d", cardDecIdx) != 1)
+        {
+            while (scanf("%*s") == 1);
+            *cardDecIdx = -1;
+        }
 
 	} while (!(*cardDecIdx == 1 || *cardDecIdx == 0));
 	
