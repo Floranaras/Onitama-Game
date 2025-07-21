@@ -1,7 +1,8 @@
 #include "onitama.h"
 /*
 	This function loads the master list of cards from a TXT file into the database.
-	Precondition: The databaseType structure is defined and the master list file exists.
+	Precondition: The databaseType structure is defined and the master list file exists
+	              inside the required "data/" directory.
 
 	@param db a pointer to the databaseType structure where the card data will be loaded
 
@@ -46,8 +47,9 @@ int loadMasterList (databaseType *db)
 
 /*
 	This function retrieves the card patterns from a file and stores them in the database.
-	Precondition: The databaseType structure is defined and the card file exists.
-
+	Precondition: The databaseType structure is defined and the card file exists
+	              inside the required "data/" directory.
+				  
 	@param db a pointer to the databaseType structure where the card patterns will be stored
 	@param filename the name of the file containing the card patterns
 	@param idx the index of the card in the database
@@ -114,7 +116,8 @@ int getCardPatterns (databaseType *db, String30 filename, int idx)
 
 /*
 	This function retrieves the card patterns for all cards in the database from their respective files.
-	Precondition: The databaseType structure is defined and the card files exist.
+	Precondition: The databaseType structure is defined and the card file exists
+	              inside the required "data/" directory.
 
 	@param db a pointer to the databaseType structure where the card patterns will be stored
 
@@ -235,7 +238,8 @@ void initCards (databaseType *db)
 
 /*
 	This function loads the master list of cards, retrieves the card patterns, and initializes the moves for all cards in the database.
-	Precondition: The databaseType structure is defined and the master list file exists.
+	Precondition: The databaseType structure is defined and the card file exists
+	              inside the required "data/" directory.
 
 	@param db a pointer to the databaseType structure where the card data will be loaded
 
