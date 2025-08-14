@@ -1,17 +1,43 @@
-# Makefile for Onitama Game
+# Makefile for Onitama with Enhanced Console UI
+
 CC = gcc
-CFLAGS = -Wall -std=c99
-TARGET = onitama
+CFLAGS = -Wall -Wextra -std=c99 -g
+LDFLAGS = -lncurses
 
-all: $(TARGET)
+# Program names
+ORIGINAL_TARGET = onitama_original
+ENHANCED_TARGET = onitama_enhanced
 
-$(TARGET): main.c
-	$(CC) $(CFLAGS) -o $(TARGET) main.c
+# Default target
+all: enhanced
 
+# Enhanced version with arrow keys
+enhanced: $(ENHANCED_TARGET)
+
+# Original console version
+original: $(ORIGINAL_TARGET)
+
+# Build both versions
+both: enhanced original
+
+# Enhanced version (ncurses)
+$(ENHANCED_TARGET): onitama_ncurses.c onitama.h
+	$(CC) $(CFLAGS) onitama_ncurses.c -o $(ENHANCED_TARGET) $(LDFLAGS)
+
+# Original version
+$(ORIGINAL_TARGET): main.c onitama.h
+	$(CC) $(CFLAGS) main.c -o $(ORIGINAL_TARGET)
+
+# Clean
 clean:
-	rm -f $(TARGET)
+	rm -f $(ENHANCED_TARGET) $(ORIGINAL_TARGET) *.o
 
-run: $(TARGET)
-	./$(TARGET)
+# Run enhanced version
+run: $(ENHANCED_TARGET)
+	./$(ENHANCED_TARGET)
 
-.PHONY: all clean run
+# Run original version
+run-original: $(ORIGINAL_TARGET)
+	./$(ORIGINAL_TARGET)
+
+.PHONY: all enhanced original both clean run run-original

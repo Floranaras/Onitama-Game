@@ -1,3 +1,6 @@
+#ifndef ONITAMA_H
+#define ONITAMA_H
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -117,6 +120,7 @@ void viewBlueBoard(databaseType *db);
 void printRedCardRow (databaseType *db, int cardRow, int *moveNum);
 void viewRedBoard(databaseType *db);
 void displayBoard(databaseType *db);
+void viewWinner(databaseType *db);
 
 /* Check Function Prototypes */
 void getPieces(char* student, char* sensei, int currentPlayer);
@@ -142,11 +146,13 @@ void movePiece(databaseType *db, pointType src, pointType dest);
 void checkForTempleWin(databaseType *db, int *redTempleCapture, int *blueTempleCapture);
 void checkForSensei(databaseType *db, int *redFound, int *blueFound);
 void checkForWin(databaseType *db);
+void recordMoves(databaseType *db, pointType src, pointType dest, int cardIdx);
 void makeMove(databaseType *db);
 void clearScreen();
 void gameLoop(databaseType *db);
-
+void outputSaveFile(databaseType *db);
 
 /* Menu Function Prototypes */
 void mainMenu(databaseType *db);
 
+#endif // ONITAMA_H
