@@ -52,8 +52,6 @@ Onitama-Game/
 ├── testmain.c           # Comprehensive test suite
 ├── Makefile             # Build automation
 ├── README.md            # This documentation
-└── specs/               # Project specifications
-    └── CCPROG2 MP - Term 3, AY 2024-2025 (Onitama) - Shirley.pdf
 ```
 
 ## Requirements
