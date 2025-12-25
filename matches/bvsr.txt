@@ -1,15 +1,15 @@
-JEN vs. LIM
+b vs. r
 RED's turn
 Card Used: Crab
 Moved From: 0 2
 Moved To: 1 2
 BLUE's turn
-Card Used: Tiger
+Card Used: skibidi
 Moved From: 4 2
 Moved To: 2 2
 RED's turn
-Card Used: Horse
+Card Used: Boar
 Moved From: 1 2
 Moved To: 2 2
 
-LIM (Red) wins by Master Capture!
+r (Red) wins by Master Capture!
